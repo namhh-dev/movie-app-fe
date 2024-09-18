@@ -31,9 +31,9 @@ const EpisodeForm = ({ listEp, setListEp, handleCloseForm }) => {
       {/* HEADER AREA */}
       <div className='p-2 flex justify-between'>
         <span></span>
-        <h2 className='text-lg font-medium'>THÊM TẬP PHIM</h2>
+        <h2 className='text-lg font-medium text-white'>THÊM TẬP PHIM</h2>
         <span onClick={handleCloseForm} className='font-bold cursor-pointer'>
-          <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" viewBox="0 0 24 24">
+          <svg className="w-6 h-6 text-white dark:text-white" aria-hidden="true" viewBox="0 0 24 24">
             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L17.94 6M18 18L6.06 6" />
           </svg>
         </span>

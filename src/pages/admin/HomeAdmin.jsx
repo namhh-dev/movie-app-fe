@@ -1,12 +1,13 @@
 import React from "react";
-import AdminSidebar from "../../components/navbar/AdminSidebar";
-import Dasboard from "./Dasboard";
+import AdminLayout from "../../components/admin/AdminLayout";
+import Movie from "./Movie";
 
 export default function HomeAdmin() {
   return (
     <>
-      <AdminSidebar />
-      <Dasboard />
+      <AdminLayout >
+        <Movie />
+      </AdminLayout >
     </>
   );
 }

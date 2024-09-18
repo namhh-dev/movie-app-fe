@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
-import Layout from "../../components/user/movie/Layout";
-import { getMovieById } from "../../services/movieService";
-import Loading from "../../components/loading/Loading";
+import { Link, useParams } from "react-router-dom";
+import Layout from "../../../components/user/movie/Layout";
+import { getMovieById, getMovieBySlug } from "../../../services/movieService";
+import Loading from "../../../components/loading/Loading";
+import { Icon } from "./MovieDetail";
 
 export default function ViewMovie() {
   const [movie, setMovie] = useState(null);
@@ -11,30 +12,29 @@ export default function ViewMovie() {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const { id, epId } = useParams();
-  
-  // Fetch data from API
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const data = await getMovieById(id);
-      if(data){
-        setMovie(data);
-        setEpisodes(data.Episodes);
-        setCurrentEp(data.Episodes.find((ep) => ep.ep_id === parseInt(epId)));
-        setIsLoading(false);
-    }
-    } catch (error) {
-        setIsLoading(false);
-        console.error(error);
-    }
-  };
+  const { slug, epId } = useParams();
   
   useEffect(() => {
+    // Fetch data from API
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getMovieBySlug(slug);
+        if(data){
+          setMovie(data);
+          setEpisodes(data.Episodes);
+          setCurrentEp(data.Episodes.find((ep) => ep.ep_id === parseInt(epId)));
+        }
+        setIsLoading(false);
+      } catch (error) {
+          setIsLoading(false);
+          console.error(error);
+      }
+    };
     fetchData();
-  }, [id, epId]);
+  }, [slug, epId]);
 
-  if (isLoading || !movie || !currentEp) {
+  if (isLoading) {
     return (
       <Layout>
         <div className="flex justify-center items-center h-screen text-white">
@@ -43,6 +43,19 @@ export default function ViewMovie() {
       </Layout>
     );
   }
+
+  if (!movie || !currentEp) {
+    return (
+    <Layout>
+        <div className="flex flex-col items-center justify-center h-[580px] text-white text-lg">
+          <div className="flex gap-2 mb-4">
+            <Icon />
+            <Link to="/">Trang chủ</Link>
+          </div>
+          <p>Không tìm thấy movie này</p>
+        </div>
+    </Layout>
+  )}
 
   // Function to handle episode change
   const handleEpisodeChange = (ep) => {
@@ -63,7 +76,7 @@ export default function ViewMovie() {
           <span>{'>'}</span>
           <Link to={`/movie/${movie.Countries[0].ctr_slug}`}>{movie.Countries[0].ctr_name}</Link>
           <span>{'>'}</span>
-          <Link to={`/movie/${movie.mov_id}`}>{movie.mov_name}</Link>
+          <Link to={`/movie/${movie.mov_slug}`}>{movie.mov_name}</Link>
           <span>{'>'}</span>
           <span>{currentEp.ep_name}</span>
         </div>

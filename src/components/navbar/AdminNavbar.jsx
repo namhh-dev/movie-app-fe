@@ -23,7 +23,7 @@ export default function AdminNavbar({ setIndex }) {
 
   return (
     <Disclosure as="nav" className="fixed top-0 z-50 backdrop-blur-lg w-full bg-transparent border-gray-400 border-b-[1px]">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div className="">
         <div className="relative flex h-20 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button*/}
@@ -42,8 +42,8 @@ export default function AdminNavbar({ setIndex }) {
                     onClick={()=>{handleSwitchComponent(item.index)}}
                     aria-current={item.current ? 'page' : undefined}
                     className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-black hover:text-blue-700',
-                      'rounded-md px-3 py-2 text-lg font-medium cursor-pointer',
+                      item.current ? 'bg-gray-500 text-white' : 'hover:bg-[#8b5cf6]',
+                      'rounded-md px-3 py-2 text-lg text-white font-medium cursor-pointer',
                     )}>
                     {item.name}
                   </span>
@@ -60,11 +60,11 @@ export default function AdminNavbar({ setIndex }) {
             <DisclosureButton
               key={item.name}
               as="a"
-              onClick={()=>{setIndex(item.index)}}
+              onClick={()=>{handleSwitchComponent(item.index)}}
               aria-current={item.current ? 'page' : undefined}
               className={classNames(
-                item.current ? 'bg-gray-900 text-white' : 'text-black hover:bg-gray-700 hover:text-white',
-                'block rounded-md px-3 py-2 text-base font-medium',
+                item.current ? 'bg-gray-500 text-white' : 'hover:bg-[#8b5cf6]',
+                'block rounded-md px-3 py-2 text-base text-white font-medium hover:cursor-pointer',
               )}>
               {item.name}
             </DisclosureButton>

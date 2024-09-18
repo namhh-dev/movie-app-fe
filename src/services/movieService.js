@@ -64,17 +64,39 @@ export const getLatestMovie = async () => {
     }
 }
 
-// Function get latest movie
+// Function get movie by id
 export const getMovieById = async (id) => {
     try {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8080/movie/${id}`,
+            url: `http://localhost:8080/movie/id/${id}`,
             headers: { }
           };
           
-          console.log(config.url);
+        const result = await axios.request(config)
+          .then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        
+        return result;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+// Function get movie by id
+export const getMovieBySlug = async (slug) => {
+    try {
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8080/movie/slug/${slug}`,
+            headers: { }
+          };
           
         const result = await axios.request(config)
           .then((response) => {
@@ -110,8 +132,47 @@ export const createMovie = async (data) => {
         return error.response;
     }
 }
+
+// Function update movie
+export const updateMovie = async (data) => {
+    try {
+        let config = {
+        method: 'put',
+        maxBodyLength: Infinity,
+        url: `http://localhost:8080/movie`,
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        data : data
+        };
         
-// Function auto fill data when fetch api
+        const result = await axios.request(config);
+        
+        return result;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+// Function delete movie
+export const deleteMovie = async (id) => {
+    try {
+        let config = {
+        method: 'delete',
+        maxBodyLength: Infinity,
+        url: `http://localhost:8080/movie/${id}`,
+        headers: { }
+        };
+        
+        const result = await axios.request(config);
+        
+        return result;
+    } catch (error) {
+        return error.response;
+    }
+}
+        
+// Function auto fill movie data when fetch api
 export const handleAutoFillMovieData = async (data, updateState, optionState) => {
     const findOrCreateOption = (options, key, value, defaultOptions) => options.find(option => option[key] === value) || defaultOptions;
 
@@ -127,7 +188,7 @@ export const handleAutoFillMovieData = async (data, updateState, optionState) =>
     updateState("quality", data.quality || '');
     updateState("lang", data.lang || '');
     
-    updateState("status", data.status=="completed"?1:0);
+    updateState("status", data.status==="completed"?1:0);
 
      // Check and update the movie type if valid
      if (data.type && optionState.typeOptions.some(type => type.type_slug === data.type)) {
@@ -135,7 +196,7 @@ export const handleAutoFillMovieData = async (data, updateState, optionState) =>
     }
 
     // Check and update the year if valid
-    updateState("year", optionState.yearOptions.filter(year => year.label == data.year));
+    updateState("year", optionState.yearOptions.filter(year => year.label === data.year));
 
     // Filter categories by slug and update if valid
     if (Array.isArray(data.category)) {
@@ -183,6 +244,7 @@ export const handleAutoFillMovieData = async (data, updateState, optionState) =>
     }
 }
 
+// Function auto fill episode data when fetch api
 export const handleAutoFillEpisodeData = async (data, setListEp)=>{
     setListEp(data.reduce((acc, ep) => {
         ep.server_data.forEach((epDetail, index) => {

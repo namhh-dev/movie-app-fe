@@ -6,6 +6,7 @@ import Dropdown from './Dropdown';
 
 
 const navigation = [
+  { name: 'Admin', href: '/admin/movie', current: false },
   { name: 'Phim bộ', href: '#', current: false },
   { name: 'Phim lẻ', href: '#', current: false },
   { name: 'TV Shows', href: '#', current: false },
@@ -20,8 +21,8 @@ export default function Navbar() {
 
   return (
     <Disclosure as="nav" className="fixed top-0 z-50 backdrop-blur-lg w-full bg-transparent border-gray-400 border-b-[1px]">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="relative flex h-20 items-center justify-between">
+      <div className="mx-auto px-2 sm:px-6 lg:px-8">
+        <div className="relative flex h-20 items-center">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button*/}
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -31,18 +32,20 @@ export default function Navbar() {
               <XMarkIcon aria-hidden="true" className="hidden h-6 w-6 group-data-[open]:block" />
             </DisclosureButton>
           </div>
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex flex-shrink-0 items-center">
-              <img alt="Your Company" src={Thumb} className="h-10 w-auto"/>
-            </div>
+          <div className="flex flex-1 items-center justify-between sm:items-stretch sm:justify-between">
+            <div className='flex items-center'>
+              <a href="/" className="flex flex-shrink-0 items-center">
+                <img alt="Your Company" src={Thumb} className="h-12 w-auto"/>
+              </a>
 
-            <div className="relative ml-5 rounded-lg">
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <span className="text-gray-500 sm:text-sm"></span>
+              <div className="ml-5 rounded-lg">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <span className="text-gray-500 sm:text-sm"></span>
+                </div>
+                <input id="search" name="search" type="text" placeholder="Tìm kiếm phim..."
+                  className="block w-[20rem] rounded-3xl border-0 py-1.5 px-7 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
               </div>
-              <input id="search" name="search" type="text" placeholder="Tìm kiếm phim..."
-                className="block w-[20rem] rounded-3xl border-0 py-1.5 px-7 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
             </div>
 
             <div className="hidden sm:ml-6 sm:block">

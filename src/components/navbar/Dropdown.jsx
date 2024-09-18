@@ -22,7 +22,7 @@ export default function Dropdown() {
         setIsYearOpen(!isYearOpen);
     };
 
-    const [isCallApi, setIsCallApi] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     // const { loading } = useSelector(yearSelector);
 
@@ -32,7 +32,7 @@ export default function Dropdown() {
 
     // Fetch data from API
     const fetchData = async () => {
-        setIsCallApi(true);
+        setIsLoading(true);
         try {
             const endpoints = ['category', 'year', 'country'];
 
@@ -47,9 +47,9 @@ export default function Dropdown() {
             setYears(yearData);
             setCountries(countryData);
 
-            setIsCallApi(false);
+            setIsLoading(false);
         } catch (error) {
-            setIsCallApi(false);
+            setIsLoading(false);
             console.error(error);
         }
     };
@@ -69,13 +69,15 @@ export default function Dropdown() {
                     </svg>
                 </button>
                 {/* Hiển thị dropdown dựa trên trạng thái */}
-                {isCategoryOpen && (
-                    <div id="dropdownNavbar" className="absolute right-0 mt-6 z-10 text-black font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-64 dark:bg-gray-700 dark:divide-gray-600">
-                        <div className="grid grid-cols-3 gap-4 p-2 text-sm text-black dark:text-gray-400">
+                {(isCategoryOpen&&!isLoading)&& (
+                    <div id="dropdownNavbar" className="absolute w-[400px] right-0 mt-7 z-10 font-normal bg-[#23262D] divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
+                        <div className="grid grid-cols-3 p-2 text-sm text-white dark:text-gray-400">
                         {categories.map((cat)=>{
-                            <span key={cat.cat_id} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                {cat.cat_name}
-                            </span>
+                            return(
+                                <a href="#" key={cat.cat_id} className="block px-4 py-2 rounded-md hover:bg-[#8b5cf6] dark:hover:bg-gray-600 dark:hover:text-white">
+                                    {cat.cat_name}
+                                </a>
+                            )
                         })}
                         </div>
                     </div>
@@ -92,14 +94,19 @@ export default function Dropdown() {
                     </svg>
                 </button>
                 {/* Hiển thị dropdown dựa trên trạng thái */}
-                {isCountryOpen && (
-                    <div id="dropdownNavbar" className="absolute right-0 mt-6 z-10 text-black font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-64 dark:bg-gray-700 dark:divide-gray-600">
-                        <div className="grid grid-cols-3 gap-4 p-2 text-sm text-black dark:text-gray-400">
-                        {countries.map((item)=>{
-                            <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                            {item.ctr_name}
+                {(isCountryOpen&&!isLoading) && (
+                    <div id="dropdownNavbar" className="absolute w-[400px] right-0 mt-7 z-10 font-normal bg-[#23262D] divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
+                        <div className="grid grid-cols-3 p-2 text-sm text-white dark:text-gray-400">
+                            {countries.map((item)=>{
+                                return(
+                                    <a href="#" className="block px-3 py-2 rounded-md hover:bg-[#8b5cf6] dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {item.ctr_name}
+                                    </a>
+                                )
+                            })}
+                            <a href="#" className="block px-3 py-2 rounded-md hover:bg-[#8b5cf6] dark:hover:bg-gray-600 dark:hover:text-white">
+                                Quốc gia khác
                             </a>
-                        })}
                         </div>
                     </div>
                 )}
@@ -115,13 +122,15 @@ export default function Dropdown() {
                     </svg>
                 </button>
                 {/* Hiển thị dropdown dựa trên trạng thái */}
-                {isYearOpen && (
-                    <div id="dropdownNavbar" className="absolute right-0 mt-6 z-10 text-black font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-64 dark:bg-gray-700 dark:divide-gray-600">
-                        <div className="grid grid-cols-3 gap-4 p-2 text-sm text-black dark:text-gray-400">
-                        {categories.map((item)=>{
-                            <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                            {item.year_name}
-                            </a>
+                {(isYearOpen&&!isLoading) && (
+                    <div id="dropdownNavbar" className="absolute right-0 mt-7 z-10 font-normal bg-[#23262D] divide-y divide-gray-100 rounded-lg shadow w-80 dark:bg-gray-700 dark:divide-gray-600">
+                        <div className="grid grid-cols-4 p-2 text-sm text-white dark:text-gray-400">
+                        {years.map((item)=>{
+                            return(
+                                <a href="#" className="block px-4 py-2 rounded-md hover:bg-[#8b5cf6] dark:hover:bg-gray-600 dark:hover:text-white">
+                                    {item.year_name}
+                                </a>
+                            )
                         })}
                         </div>
                     </div>
