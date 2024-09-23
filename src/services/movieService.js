@@ -17,13 +17,17 @@ export const resMovie = async (url) => {
 }
 
 // Function get all movie
-export const getAllMovie = async () => {
+export const getAllMovie = async (params, currentPage) => {
     try {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
             url: 'http://localhost:8080/movie',
-            headers: { }
+            headers: { },
+            params: {
+                page: currentPage,
+                limit: 10       
+            },
           };
           
         const result = await axios.request(config)
@@ -41,13 +45,17 @@ export const getAllMovie = async () => {
 }
 
 // Function get latest movie
-export const getLatestMovie = async () => {
+export const getLatestMovie = async (currentPage) => {
     try {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
             url: 'http://localhost:8080/latest-movie',
-            headers: { }
+            headers: { },
+            params: {
+                page: currentPage,
+                limit: 15       
+            },
           };
           
         const result = await axios.request(config)
@@ -110,6 +118,179 @@ export const getMovieBySlug = async (slug) => {
     } catch (error) {
         return error.response;
     }
+}
+
+// Function get movie by type
+export const getMovieByType = async (typeSlug, currentPage) => {
+    try {
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8080/movie/type/${typeSlug}`,
+            headers: { },
+            params: {
+                page: currentPage,
+                limit: 15       
+            },
+          };
+          
+        const result = await axios.request(config)
+          .then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        
+        return result;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+// Function get movie by category
+export const getMovieByCategory = async (catSlug, currentPage) => {
+    try {
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8080/movie/category/${catSlug}`,
+            headers: { },
+            params: {
+                page: currentPage,
+                limit: 15       
+            },
+          };
+          
+        const result = await axios.request(config)
+          .then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        
+        return result;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+// Function get movie by country
+export const getMovieByCountry = async (ctrSlug, currentPage) => {
+    try {
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8080/movie/country/${ctrSlug}`,
+            headers: { },
+            params: {
+                page: currentPage,
+                limit: 15       
+            },
+          };
+          
+        const result = await axios.request(config)
+          .then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        
+        return result;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+// Function get movie by year
+export const getMovieByYear = async (year, currentPage) => {
+    try {
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8080/movie/year/${year}`,
+            headers: { },
+            params: {
+                page: currentPage,
+                limit: 15       
+            },
+          };
+          
+        const result = await axios.request(config)
+          .then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        
+        return result;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+// Function get movie by id
+export const getMovieByNameOrSlug = async (query, currentPage) => {
+try {
+      let config = {
+          method: 'get',
+          maxBodyLength: Infinity,
+          url: `http://localhost:8080/movie/search`,
+          params: {
+              query: query?query.query:'',
+              page: currentPage,
+              limit: 10       
+          },
+          headers: { }
+        };
+      const result = await axios.request(config)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      
+      return result;
+  } catch (error) {
+      return error.response;
+  }
+}
+
+// Function get movie by id
+export const filterMovie = async (filter, currentPage) => {
+  try {
+      let config = {
+          method: 'get',
+          maxBodyLength: Infinity,
+          url: `http://localhost:8080/movie/filter`,
+          params: {
+              year: filter.year,
+              type: filter.type,
+              category: filter.category,
+              country: filter.country,
+              actor: filter.actor,
+              director: filter.director,
+              page: currentPage,
+              limit: 10       
+          },
+          headers: { }
+        };
+      const result = await axios.request(config)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      
+      return result;
+  } catch (error) {
+      return error.response;
+  }
 }
 
 // Function create movie
@@ -190,13 +371,15 @@ export const handleAutoFillMovieData = async (data, updateState, optionState) =>
     
     updateState("status", data.status==="completed"?1:0);
 
-     // Check and update the movie type if valid
-     if (data.type && optionState.typeOptions.some(type => type.type_slug === data.type)) {
+    // Check and update the movie type if valid
+    if (data.type && optionState.typeOptions.some(type => type.type_slug === data.type)) {
         updateState("type", data.type);
     }
 
     // Check and update the year if valid
-    updateState("year", optionState.yearOptions.filter(year => year.label === data.year));
+    if (data.year && optionState.yearOptions.some(year => year.year_name === data.year)) {
+      updateState("year", data.year);
+    }
 
     // Filter categories by slug and update if valid
     if (Array.isArray(data.category)) {

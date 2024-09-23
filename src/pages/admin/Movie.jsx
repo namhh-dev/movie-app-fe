@@ -13,10 +13,10 @@ export default function Movie() {
     <>
       <AdminLayout >
         <div className="bg-[rgb(16,20,44)] w-full h-full">
-          <div class="sm:p-4 sm:ml-48">
+          <div class="sm:p-4 laptop-m:ml-48">
             <AdminNavbar setIndex={setIndex} />
           </div>
-          <div class="sm:p-4 sm:mt-12 pt-16 sm:ml-52">
+          <div class="laptop-m:p-4 laptop-m:mt-12 pt-16 laptop-m:ml-52">
             <div class="p-2 rounded-lg backdrop-blur-lg">
               {childComponent[index]}
             </div>

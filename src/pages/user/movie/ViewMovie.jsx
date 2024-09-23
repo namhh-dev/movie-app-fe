@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Layout from "../../../components/user/movie/Layout";
-import { getMovieById, getMovieBySlug } from "../../../services/movieService";
+import { getMovieBySlug } from "../../../services/movieService";
 import Loading from "../../../components/loading/Loading";
-import { Icon } from "./MovieDetail";
+import { IconHome } from "../../../components/icon/Icon";
 
 export default function ViewMovie() {
   const [movie, setMovie] = useState(null);
@@ -49,7 +49,7 @@ export default function ViewMovie() {
     <Layout>
         <div className="flex flex-col items-center justify-center h-[580px] text-white text-lg">
           <div className="flex gap-2 mb-4">
-            <Icon />
+            <IconHome />
             <Link to="/">Trang chủ</Link>
           </div>
           <p>Không tìm thấy movie này</p>
@@ -72,11 +72,11 @@ export default function ViewMovie() {
           </svg>
           <Link to="/">Trang chủ</Link>
           <span>{'>'}</span>
-          <Link to={`/movie/${movie.Type.type_slug}`}>{movie.Type.type_name}</Link>
+          <Link to={`/movie/type/${movie.Type.type_slug}`}>{movie.Type.type_name}</Link>
           <span>{'>'}</span>
-          <Link to={`/movie/${movie.Countries[0].ctr_slug}`}>{movie.Countries[0].ctr_name}</Link>
+          <Link to={`/movie/country/${movie.Countries[0].ctr_slug}`}>{movie.Countries[0].ctr_name}</Link>
           <span>{'>'}</span>
-          <Link to={`/movie/${movie.mov_slug}`}>{movie.mov_name}</Link>
+          <Link to={`/movie/detail/${movie.mov_slug}`}>{movie.mov_name}</Link>
           <span>{'>'}</span>
           <span>{currentEp.ep_name}</span>
         </div>

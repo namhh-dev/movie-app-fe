@@ -5,10 +5,10 @@ export default function MovieCardDetail({ movie }) {
     return(
         <>
             <div className="flex">
-                <div style={{ flex: '0 0 22%' }}>
-                    <img className="h-[22rem] rounded-md" src={movie.poster_url} alt="" />
+                <div style={{ flex: '0 0 20%' }}>
+                    <img className="h-[340px] rounded-md" src={movie.poster_url} alt="" />
                 </div>
-                <div  style={{ flex: '0 0 78%' }}>
+                <div  style={{ flex: '0 0 75%' }}>
                     <div className="flex flex-col gap-2">
                         <div><strong className="text-[#1496d5]">Tình trạng:</strong> {movie.episode_current}</div>
                         <div><strong className="text-[#1496d5]">Số tập:</strong> {movie.episode_total}</div>
