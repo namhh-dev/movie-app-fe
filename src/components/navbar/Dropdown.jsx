@@ -61,8 +61,8 @@ const Dropdown = ({ label, isOpen, items, toggleDropdown, isLoading }) => {
           </svg>
         </button>
         {isOpen && !isLoading && (
-          <div className="absolute w-[400px] right-0 mt-7 z-10 font-normal bg-[#23262D] divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
-            <div className="grid grid-cols-3 p-2 text-sm text-white dark:text-gray-400">
+          <div className="absolute w-[550px] right-0 mt-7 z-10 font-normal bg-[#23262D] divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
+            <div className="grid grid-cols-4 p-2 text-sm text-white dark:text-gray-400">
               {displayItems.map((item) => (
                 <Link to={`/movie/${item.type}/${item.value}`} key={item.id || item.name} className="block px-4 py-2 rounded-md hover:bg-[#8b5cf6] dark:hover:bg-gray-600 dark:hover:text-white">
                   {item.name}

@@ -97,12 +97,11 @@ export default function FormCreateMovie({ state, updateState, optionState ,updat
 // ImageUpload Component to handle poster and thumbnail
 const Images = ({ state, updateState }) => (
     <div className='pr-2'>
-        <div className={`flex gap-4 items-center h-[195px] mr-2`}>
-            <div className="flex-1" style={{ flex: '0 0 77%' }}>
+        <div className={`flex gap-4 items-center h-auto desktop:h-[250 px] mr-2`}>
+            <div className="flex-1" style={{ flex: '0 0 70%' }}>
                 <InputComponent title="Poster URL" id="poster" type="text" placeholder="https://phimimg.com/upload/.jpg" value={state.posterUrl} onChange={e => updateState("posterUrl", e.target.value)} />
             </div>
-            <div className="flex-1 border h-[195px] p-1 rounded-md flex items-center justify-center" 
-                style={{ flex: '0 0 23%' }}> 
+            <div className="flex-1 border h-auto desktop:h-[250px] p-1 rounded-md flex items-center justify-center" style={{ flex: '0 0 30%' }}> 
                 {state.posterUrl 
                 ? 
                     <ImagePreview url={state.posterUrl} alt="Poster"/>
@@ -111,16 +110,16 @@ const Images = ({ state, updateState }) => (
                 }
             </div>
         </div>
-        <div className={`flex gap-4 items-center h-[80px] mt-2 mr-2`}>
-            <div className="flex-1" style={{ flex: '0 0 77%' }}>
+        <div className={`flex gap-4 items-center h-auto desktop:h-[80px] mt-2 mr-2`}>
+            <div className="flex-1" style={{ flex: '0 0 70%' }}>
                 <InputComponent title="Thumbnail URL" id="thumb" type="text" placeholder="https://phimimg.com/upload/.jpg" value={state.thumbUrl} onChange={e => updateState("thumbUrl", e.target.value)} />
             </div>
-            <div className="flex-1 border h-[80px] p-1 rounded-md flex items-center justify-center" style={{ flex: '0 0 23%' }}>
+            <div className="flex-1 border h-auto desktop:h-[80px] p-1 rounded-md flex items-center justify-center" style={{ flex: '0 0 30%' }}>
                 {state.thumbUrl 
                     ? 
                     <ImagePreview url={state.thumbUrl} alt="Thumbnail" />
                     :
-                    <p className='text-gray-700 font-medium'>Thumb Image</p>
+                    <p className='text-gray-500 font-medium'>Thumb Image</p>
                 }
             </div>
         </div>
@@ -129,5 +128,5 @@ const Images = ({ state, updateState }) => (
   
 // ImagePreview Component
 const ImagePreview = ({ url, alt }) => (
-    <img src={url} alt={alt} className={`w-full h-full border rounded shadow object-cover`} onError={(e) => e.target.style.display = 'none'} />
+    <img src={url} alt={alt} className={`w-full min-w-[70px]  min-h-[50px] h-full border rounded shadow object-cover`} onError={(e) => e.target.style.display = 'none'} />
 );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../../components/user/movie/Layout";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { getMovieByYear } from "../../../services/movieService";
 import Loading from "../../../components/loading/Loading";
 import TableMovie from "../../../components/user/movie/TableMovie";
@@ -10,14 +10,17 @@ import { IconHome } from "../../../components/icon/Icon";
 
 export default function MovieYear() {
   const context = useStore();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [movies, setMovies] = useState();
   const { year } = useParams();
 
   const yearName = context.years.filter((y)=>y.year_name==year);
   
-  
-  const [currentPage, setCurrentPage] = useState(1);
+  const params = new URLSearchParams(location.search);
+  const currentPage = parseInt(params.get("page")) || 1;
+
   const [totalPages, setTotalPages] = useState(1);
   const [totalMovies, setTotalMovies] = useState(0);
 
@@ -38,14 +41,16 @@ export default function MovieYear() {
   }
 
   useEffect(()=>{
-    fetchMovie();
-  },[]);
+    fetchMovie(currentPage);
+  },[year]);
   
 
   // Handle page changes for both search and fetch
   const onPageChange = (page) => {
     if(page !== currentPage){   // Check if the new page is different from the current page
-      setCurrentPage(page);     // Update current page
+      const params = new URLSearchParams(location.search);
+      params.set("page", page); // Cập nhật giá trị page
+      navigate(`${location.pathname}?${params.toString()}`);
       fetchMovie(page);
     }
   };
@@ -88,10 +93,13 @@ export default function MovieYear() {
           <p>Không tìm thấy dữ liệu</p>
       </div>
       :
-        <div class="relative overflow-x-auto mt-2 pb-2">
-            <Breadcrumbs year={yearName[0]} />
+        <div class="relative mt-2 pb-2">
+          <Breadcrumbs year={yearName[0]} />
+
           {/* movie list */}
-          <TableMovie colDefs={colDefs} movies={movies}/>
+          <div class="overflow-x-auto mb-2">
+            <TableMovie colDefs={colDefs} movies={movies}/>
+          </div>
 
           {/* pagination */}
           {(!isLoading&&totalMovies!==0)&&<Pagination currentPage={currentPage} totalDatas={totalMovies} totalPages={totalPages} onPageChange={onPageChange} handlePagination={handlePagination}/>}
@@ -105,7 +113,7 @@ const Breadcrumbs = ({ year }) => (
   <div className="flex gap-2 items-center text-gray-300 text-sm mb-4">
     <IconHome />
     <Link to="/">Trang chủ</Link>
-    <span>{">"}</span>
-    <span>{year.year_name}</span>
+    <span>{year?'>':''}</span>
+    <span>{year?year.year_name:''}</span>
   </div>
 );

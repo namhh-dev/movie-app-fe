@@ -1,10 +1,8 @@
-import React from 'react'
-import AdminSidebar from '../navbar/AdminSidebar'
+import React from 'react';
 
 export default function AdminLayout({ children }) {
   return (
     <>
-      <AdminSidebar />
       { children }
     </>
   )

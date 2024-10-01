@@ -20,14 +20,6 @@ export default function AdminSidebar() {
                             <span class="ms-3">Movie</span>
                         </Link>
                     </li>
-                    <li>
-                        <Link to="/admin/movie" class="flex items-center p-2 text-white rounded-lg hover:text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg class="w-6 h-6 text-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7H8m8 4H8m8 4H8m8-10l-2-2m-4 0l-2 2M4 6h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z" />
-                            </svg>
-                            <span class="flex-1 ms-3 whitespace-nowrap">Episode</span>
-                        </Link>
-                    </li>
                 </ul>
             </div>
         </aside>

@@ -3,6 +3,7 @@ import Context from './Context';
 import axios from "axios";
 
 const Provider = ({ children }) => {
+    const apiUrl = process.env.REACT_APP_BACKEND_URL;
     const [isLoading, setIsLoading] = useState(false);
 
     const [categories, setCategories] = useState([]);
@@ -21,7 +22,7 @@ const Provider = ({ children }) => {
         
                 // call promise all api from BE 
                 const responses = await Promise.all(
-                    endpoints.map(endpoint => axios.get(`http://localhost:8080/${endpoint}`))
+                    endpoints.map(endpoint => axios.get(`${apiUrl}/api/v1/${endpoint}`))
                 );  
         
                 const [categoryData, yearData, countryData, typeData, actorData, directorData] = responses.map(res => res.data);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function ToggleSection({ title, children }) {
+export default function ToggleSection({ title, isEpisode, children }) {
     const [isOpen, setIsOpen] = useState(true);
 
     return (
@@ -9,7 +9,7 @@ export default function ToggleSection({ title, children }) {
           <p>{title}</p>
           <ToggleIcon isOpen={isOpen} />
         </div>
-        <div className={`transition-all duration-500 ease-in-out ${isOpen ? 'max-h-96 opacity-100 p-3' : 'max-h-0 opacity-0'} overflow-hidden text-white text-sm`}>
+        <div className={`transition-all duration-500 ease-in-out ${isOpen?'max-h-96 opacity-100 p-3 overflow-scroll scrollbar-hidden': 'max-h-0 opacity-0'} overflow-hidden text-white text-sm`}>
           {children}
         </div>
       </div>

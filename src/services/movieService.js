@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Alert } from "../components/alert/Alert";
+const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
 const province = axios.create({
     baseURL: "",
@@ -22,9 +23,10 @@ export const getAllMovie = async (params, currentPage) => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8080/movie',
+            url: `${apiUrl}/api/v1/movie`,
             headers: { },
             params: {
+                sort: params.sort,
                 page: currentPage,
                 limit: 10       
             },
@@ -45,16 +47,16 @@ export const getAllMovie = async (params, currentPage) => {
 }
 
 // Function get latest movie
-export const getLatestMovie = async (currentPage) => {
+export const getLatestMovie = async (currentPage, limit=15) => {
     try {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8080/latest-movie',
+            url: `${apiUrl}/api/v1/latest-movie`,
             headers: { },
             params: {
                 page: currentPage,
-                limit: 15       
+                limit: limit       
             },
           };
           
@@ -78,7 +80,7 @@ export const getMovieById = async (id) => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8080/movie/id/${id}`,
+            url: `${apiUrl}/api/v1/movie/id/${id}`,
             headers: { }
           };
           
@@ -102,7 +104,7 @@ export const getMovieBySlug = async (slug) => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8080/movie/slug/${slug}`,
+            url: `${apiUrl}/api/v1/movie/slug/${slug}`,
             headers: { }
           };
           
@@ -126,7 +128,7 @@ export const getMovieByType = async (typeSlug, currentPage) => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8080/movie/type/${typeSlug}`,
+            url: `${apiUrl}/api/v1/movie/type/${typeSlug}`,
             headers: { },
             params: {
                 page: currentPage,
@@ -154,7 +156,7 @@ export const getMovieByCategory = async (catSlug, currentPage) => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8080/movie/category/${catSlug}`,
+            url: `${apiUrl}/api/v1/movie/category/${catSlug}`,
             headers: { },
             params: {
                 page: currentPage,
@@ -182,7 +184,7 @@ export const getMovieByCountry = async (ctrSlug, currentPage) => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8080/movie/country/${ctrSlug}`,
+            url: `${apiUrl}/api/v1/movie/country/${ctrSlug}`,
             headers: { },
             params: {
                 page: currentPage,
@@ -210,7 +212,7 @@ export const getMovieByYear = async (year, currentPage) => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8080/movie/year/${year}`,
+            url: `${apiUrl}/api/v1/movie/year/${year}`,
             headers: { },
             params: {
                 page: currentPage,
@@ -238,11 +240,11 @@ try {
       let config = {
           method: 'get',
           maxBodyLength: Infinity,
-          url: `http://localhost:8080/movie/search`,
+          url: `${apiUrl}/api/v1/movie/search`,
           params: {
               query: query?query.query:'',
               page: currentPage,
-              limit: 10       
+              limit: 15       
           },
           headers: { }
         };
@@ -266,12 +268,16 @@ export const filterMovie = async (filter, currentPage) => {
       let config = {
           method: 'get',
           maxBodyLength: Infinity,
-          url: `http://localhost:8080/movie/filter`,
+          url: `${apiUrl}/api/v1/movie/filter`,
           params: {
+              sort: filter.sort,
+              query: filter.query,
               year: filter.year,
               type: filter.type,
               category: filter.category,
               country: filter.country,
+              lang: filter.lang,
+              quality: filter.quality,
               actor: filter.actor,
               director: filter.director,
               page: currentPage,
@@ -299,7 +305,7 @@ export const createMovie = async (data) => {
         let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/movie-api',
+        url: `${apiUrl}/api/v1/movie-api`,
         headers: { 
             'Content-Type': 'application/json'
         },
@@ -320,7 +326,7 @@ export const updateMovie = async (data) => {
         let config = {
         method: 'put',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/movie`,
+        url: `${apiUrl}/api/v1/movie`,
         headers: { 
             'Content-Type': 'application/json'
         },
@@ -341,7 +347,7 @@ export const deleteMovie = async (id) => {
         let config = {
         method: 'delete',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/movie/${id}`,
+        url: `${apiUrl}/api/v1/movie/${id}`,
         headers: { }
         };
         

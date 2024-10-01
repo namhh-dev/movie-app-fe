@@ -3,11 +3,16 @@ import { getLatestMovie } from '../../../services/movieService';
 import Loading from '../../loading/Loading';
 import Pagination from '../../pagination/Pagination';
 import TableMovie from './TableMovie';
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function ListMovieUser() {
   const [movies, setMovies] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
   
-  const [currentPage, setCurrentPage] = useState(1);
+  const params = new URLSearchParams(location.search);
+  const currentPage = parseInt(params.get("page")) || 1;
+
   const [totalPages, setTotalPages] = useState(1);
   const [totalMovies, setTotalMovies] = useState(0);
   
@@ -33,7 +38,9 @@ export default function ListMovieUser() {
   // Handle page changes for both search and fetch
   const onPageChange = (page) => {
     if(page !== currentPage){   // Check if the new page is different from the current page
-      setCurrentPage(page);     // Update current page
+      const params = new URLSearchParams(location.search);
+      params.set("page", page); // Cập nhật giá trị page
+      navigate(`${location.pathname}?${params.toString()}`);
     }
   };
 
@@ -51,7 +58,6 @@ export default function ListMovieUser() {
   // useEffect to fetch movies
   useEffect(() => {
     fetchLatestMovie(currentPage);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
 
   // Column Definitions: Defines the columns to be displayed.
@@ -71,9 +77,11 @@ export default function ListMovieUser() {
           <Loading />
       </div>
     :
-    <div class="relative overflow-x-auto mt-2 pb-2">
-      {/* movie list */}
-      <TableMovie colDefs={colDefs} movies={movies}/>
+    <div class="relative mt-2 pb-2">
+      <div class="overflow-x-auto mb-2">
+        {/* movie list */}
+        <TableMovie colDefs={colDefs} movies={movies}/>
+      </div>
 
       {/* pagination */}
       {(!isLoading&&totalMovies!==0)&&<Pagination currentPage={currentPage} totalDatas={totalMovies} totalPages={totalPages} onPageChange={onPageChange} handlePagination={handlePagination}/>}

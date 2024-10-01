@@ -8,19 +8,24 @@ module.exports = withMT({
   theme: {
     extend: {},
     screens: {
-      'mobile-m': '420px',
+      'mobile-ss' : '325px',
+      'mobile-s': '376px',
+      'mobile-m': '426px',
       'mobile-l': '490px',
+      'mobile-xl': '550px',
 
       'tablet-s': '640px',
-      'tablet-m': '760px',
+      'tablet-sm': '670px',
+      'tablet-m': '769px',
       'tablet-l': '900px',
       'tablet-xl': '600px',
 
       'laptop-m': '980px',
-      'laptop-l': '1010px',
+      'laptop-l': '1025px',
       'laptop-xl': '1180px',
 
       'desktop': '1290px',
+      'laptop-L': '1440px'
     },
   },
   plugins: [

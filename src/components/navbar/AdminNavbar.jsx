@@ -1,6 +1,8 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import Thumb from '../../assets/image/thumb.png';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 function classNames(...classes) {
@@ -35,6 +37,11 @@ export default function AdminNavbar({ setIndex }) {
             </DisclosureButton>
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div className='px-4'>
+              <Link to="/admin/movie" div className="flex flex-shrink-0 items-center justify-center">
+                  <img alt="Your Company" src={Thumb} className="h-10 w-auto"/>
+              </Link>
+            </div>
             <div className="hidden laptop-m:ml-6 sm:block">
               <div className="flex space-x-4">
                 {navigation.map((item) => (

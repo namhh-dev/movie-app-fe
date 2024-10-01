@@ -19,13 +19,14 @@ export default function MovieDetail() {
         if (data) {
           setMovie(data);
         }
-        setIsLoading(false);
       } catch (error) {
-        setIsLoading(false);
         console.error(error);
+      }finally{
+        setIsLoading(false);
       }
     };
     fetchData();
+    window.scrollTo({top: 0, behavior: 'smooth'});
   }, []);
 
   if (isLoading) {
@@ -51,11 +52,14 @@ export default function MovieDetail() {
     </Layout>
   )}
 
+  console.log("🚀 ~ MovieDetail ~ movie:", movie)
+
+
   const dataTable = [
     { title: "Tình trạng", value: movie.episode_current },
     { title: "Số tập", value: movie.episode_total },
     { title: "Thời lượng", value: movie.time },
-    { title: "Năm phát hành", value: movie.Year.year_name },
+    { title: "Năm phát hành", value: movie?movie.Year.year_name:'' },
     { title: "Chất lượng", value: movie.quality },
     { title: "Ngôn ngữ", value: movie.lang },
     { title: "Đạo diễn", value: movie.Directors.map(d => d.dir_name).join(", ") || "Đang cập nhật" },
@@ -72,9 +76,11 @@ export default function MovieDetail() {
         <Breadcrumbs movie={movie} />
 
         <hr />
+        
+        <MovieThumb movie={movie}/>
 
         {/* Movie details section */}
-        <div className="h-full bg-[#202c3c] p-2 rounded-xl my-4 flex gap-2">
+        <div className="h-full bg-[#202c3c] p-2 rounded-xl my-4 sm:flex gap-2">
           <MoviePoster movie={movie} />
           <MovieInfo movie={movie} dataTable={dataTable} />
         </div>
@@ -86,7 +92,7 @@ export default function MovieDetail() {
           </ToggleSection>
 
           <ToggleSection title="Danh sách tập">
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-items-center gap-3">
               {movie.Episodes.map((episode) => (
                 <Link key={episode.ep_id} to={`/movie/view/${movie.mov_slug}/ep/${episode.ep_id}`} className="py-1 bg-gray-400 text-center rounded-md w-[80px]">
                   {episode.ep_name}
@@ -104,12 +110,16 @@ const Breadcrumbs = ({ movie }) => (
   <div className="flex gap-2 items-center text-gray-300 text-sm mb-4">
     <IconHome />
     <Link className="hover:text-white line-clamp-1 " to="/">Trang chủ</Link>
-    <span className=" tablet-m:block hidden">{'>'}</span>
-    <Link className="hover:text-white line-clamp-1 tablet-m:block hidden" to={`/movie/type/${movie.Type.type_slug}`}>{movie.Type.type_name}</Link>
-    <span className=" tablet-m:block hidden">{'>'}</span>
-    <Link className="hover:text-white line-clamp-1 tablet-m:block hidden" to={`/movie/country/${movie.Countries[0].ctr_slug}`}>{movie.Countries[0].ctr_name}</Link>
-    <span>{'>'}</span>
-    <span className="cursor-pointer font-bold line-clamp-1 ">{movie.mov_name} - {movie.ori_name} ({movie.Year.year_name})</span>
+    {movie&&
+      <>
+        <span className=" tablet-m:block hidden">{'>'}</span>
+        <Link className="hover:text-white line-clamp-1 tablet-m:block hidden" to={`/movie/type/${movie.Type.type_slug}`}>{movie.Type.type_name}</Link>
+        <span className=" tablet-m:block hidden">{'>'}</span>
+        <Link className="hover:text-white line-clamp-1 tablet-m:block hidden" to={`/movie/country/${movie.Countries[0].ctr_slug}`}>{movie.Countries[0].ctr_name}</Link>
+        <span>{'>'}</span>
+        <span className="cursor-pointer font-bold line-clamp-1 ">{movie.mov_name} - {movie.ori_name} ({movie.Year.year_name})</span>
+      </>
+    }
   </div>
 );
 
@@ -126,6 +136,14 @@ const MoviePoster = ({ movie }) => (
   </div>
 );
 
+const MovieThumb = ({ movie }) => {
+  return(
+    <div className="w-full h-[200px] pt-4 sm:hidden">
+    	<img src={movie.thumb_url} alt="poster" className="rounded-md w-full h-full object-cover" />
+  	</div>
+	);
+}
+
 const MovieInfo = ({ movie, dataTable }) => (
   <div className="w-full p-2 rounded-md bg-opacity-30 backdrop-blur">
     <div className="text-center border-b border-gray-700 mr-2">
@@ -136,6 +154,13 @@ const MovieInfo = ({ movie, dataTable }) => (
       {dataTable.map(({ title, value }) => (
         <Introduce key={title} title={title} value={value} />
       ))}
+    <div className="w-full px-2 mt-2 bg-transparent backdrop-blur-lg rounded-md sm:hidden">
+      <div className="flex justify-center">
+        <Link to={`/movie/view/${movie.mov_slug}/ep/${movie.Episodes[0].ep_id}`} className="line-clamp-1 py-1 px-4 bg-red-800 text-white rounded-md">
+          Xem phim
+        </Link>
+      </div>
+    </div>
     </div>
   </div>
 );
