@@ -1,7 +1,12 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Chip } from "@material-tailwind/react";
+import { IconEdit } from '../../../icon/Icon';
 
-export default function MovieCardList({ movie, onClick }) {
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
+export default function MovieCardList({ movie, location, onClick }) {
     const title = [
         {title: "Tình trạng", value: movie.episode_current},
         {title: "Số tập", value: movie.episode_total},
@@ -13,28 +18,28 @@ export default function MovieCardList({ movie, onClick }) {
         {title: "Diễn viên", value: movie.Actors.length>0&&movie.Actors.map((actor)=>actor.act_name).join(", ")},
         {title: "Thể loại", value: movie.Type.type_name},
         {title: "Danh mục", value: movie.Categories.length>0&&movie.Categories.map((cat)=>cat.cat_name).join(", ")},
-        {title: "Quốc gia", value: movie.Countries[0].ctr_name}];
+        {title: "Quốc gia", value: movie.Countries.length>0?movie.Countries.map((ctr)=>ctr.ctr_name).join(", "):"Đang cập nhật"}];
 
     const navigate = useNavigate();
 
     const handleShowMovieDetail = () => {
-        navigate(`/admin/movie-detail/${movie.mov_slug}`, { state: { movie } }); // Navigate and pass movie data
+        navigate(`/admin/movie-detail/${movie.mov_slug}`, { state: { location } }); // Navigate and pass movie data
     };
 
     return (
-    <div className={`p-2 my-4 rounded-md bg-[#202c3c]`} onClick={onClick}>
-        <div className="flex flex-col justify-center items-center">
-            <p className='line-clamp-1 font-bold text-md text-[#8b5cf6]'>{movie.mov_name.toUpperCase()}</p>
-            <span className='line-clamp-1 font-normal text-[#1496d5]'>{movie.ori_name}</span>
+    <div className={`relative px-6 py-4 my-3 rounded-md bg-[#202c3c]`} onClick={onClick}>
+        <div className="flex flex-col justify-center items-center mb-2 cursor-pointer" onClick={handleShowMovieDetail}>
+            <p className='line-clamp-1 font-bold text-[12px] mobile-l:text-[16px] text-[#8b5cf6]'>{movie.mov_name.toUpperCase()}</p>
+            <span className='line-clamp-1 font-normal text-[10px] mobile-l:text-[14px] text-[#1496d5]'>{movie.ori_name}</span>
         </div>
 
         <hr />
 
-        <div className='flex my-2'>
-            <div className="flex justify-center items-start">
-                <ImageUpload url={movie.poster_url} width={170} height={270}/>
+        <div className='flex my-2 items-center'>
+            <div className="hidden mobile-s:flex justify-center items-start">
+                <ImageUpload url={movie.poster_url}/>
             </div>
-            <div className="w-full">
+            <div className="w-full text-[11px] mobile-l:text-[15px]">
                 {title.map((item, index) => {
                 return (
                     <Content key={index} title={item.title} value={item.value} />
@@ -42,8 +47,10 @@ export default function MovieCardList({ movie, onClick }) {
                 })}
             </div>
         </div>
-        <div className='mt-2'>
-            <button onClick={handleShowMovieDetail} className="py-3 px-4 bg-blue-800 text-white rounded-md"> Quản lý phim </button>
+
+        <div className='absolute top-2 tablet-s:top-2 right-4 mt-2 mr-2'>
+            <Chip icon={<IconEdit />} onClick={handleShowMovieDetail} variant="gradient" value="Chỉnh sửa" color='purple' 
+            className="hidden tablet-m:block rounded-xl font-md py-2 px-3 cursor-pointer text-[6px] tablet-s:text-[13px]" />
         </div>
     </div>
     ) 
@@ -53,29 +60,29 @@ const Content = ({ title, value }) => {
     return(
         <>
             <div className="flex gap-5 py-[0.5px]">
-                <div className='w-[150px]'>
-                    <p className='line-clamp-1 font-medium text-[#1496d5]'>{title}</p>
+                <div className='w-[110px] mobile-l:w-[150px]'>
+                    <p className='line-clamp-1 text-[9px] mobile-l:text-[12px] laptop-m:text-[14px] font-medium text-[#1496d5]'>{title}</p>
                 </div>
                 <div className='w-[90%] flex-wrap'>
-                    <span className='line-clamp-1 font-normal text-white'>{value}</span>
+                    <span className='line-clamp-1 text-[9px] mobile-l:text-[12px] laptop-m:text-[14px] font-normal text-white'>{value}</span>
                 </div>
             </div>
         </>
     )
 }
   
-  // ImageUpload Component to handle poster and thumbnail
-export const ImageUpload = ({ url, width, height }) => (
-    <div className={`flex gap-4 items-center h-[${height}px] mr-3 mb-1`}>
-        <div className={`flex-1 h-[${height}px] p-1 rounded-md flex items-center justify-center object-cover`} style={{ flex: '0 0 23%' }}> 
-            <ImagePreview url={url} alt="Poster" width={width} height={height}/>
-        </div>
+// ImageUpload Component to handle poster and thumbnail
+const ImageUpload = ({ url }) => (
+    <div className={`flex gap-4 items-center h-[120px] w-[90px] mobile-l:h-[200px] mobile-l:w-[130px] laptop-m:h-[260px] laptop-m:w-[160px] mr-3 mb-1`}>
+        <ImagePreview url={url} alt="Poster"/>
     </div>
 );
   
   // ImagePreview Component
-export const ImagePreview = ({ url, alt, width, height }) => (
-    <div className={`w-[${width}px]`}>
-        <img src={url} alt={alt} className={`max-w-full h-[${height}px] border rounded shadow object-cover`} onError={(e) => e.target.style.display = 'none'} />
-    </div>
+const ImagePreview = ({ url }) => (
+    <LazyLoadImage src={url}
+        PlaceholderSrc={url}
+        effect="blur"
+        className={`w-full h-full border rounded shadow object-cover`}
+    />
 );

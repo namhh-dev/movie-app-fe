@@ -6,18 +6,10 @@ import { Link } from 'react-router-dom';
 export default function AdminSidebar() {
 
     return (
-    <div> 
-        <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-            <span class="sr-only">Open sidebar</span>
-            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-            </svg>
-        </button>
-
-        <aside id="default-sidebar" class="fixed top-0 left-0 border-gray-400 border-r-[1px] z-40 w-52 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+        <aside id="default-sidebar" class="fixed top-0 left-0 border-gray-400 border-r-[1px] z-40 w-52 h-screen transition-transform -translate-x-full laptop-m:translate-x-0" aria-label="Sidebar">
             <div class="h-full px-3 py-4 overflow-y-auto bg-[rgb(16,20,44)]">
                 <Link to="/" div className="flex flex-shrink-0 items-center justify-center">
-                    <img alt="Your Company" src={Thumb} className="h-14 w-auto"/>
+                    <img alt="Your Company" src={Thumb} className="h-12 w-auto"/>
                 </Link>
                 <ul class="space-y-2 mt-5 font-medium">
                     <li>
@@ -28,17 +20,8 @@ export default function AdminSidebar() {
                             <span class="ms-3">Movie</span>
                         </Link>
                     </li>
-                    <li>
-                        <Link to="/admin/movie" class="flex items-center p-2 text-white rounded-lg hover:text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg class="w-6 h-6 text-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7H8m8 4H8m8 4H8m8-10l-2-2m-4 0l-2 2M4 6h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z" />
-                            </svg>
-                            <span class="flex-1 ms-3 whitespace-nowrap">Episode</span>
-                        </Link>
-                    </li>
                 </ul>
             </div>
         </aside>
-    </div>
-  )
+    )
 }

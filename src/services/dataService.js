@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const apiUrl = process.env.REACT_APP_BACKEND_URL;
+
 export const fetchDataOptions = async (updateOptionState, setIsLoading) => {
     setIsLoading(true);
     try {
@@ -7,7 +9,7 @@ export const fetchDataOptions = async (updateOptionState, setIsLoading) => {
 
       // call promise all api to get data type, year, category,.....from BE 
       const responses = await Promise.all(
-          endpoints.map(endpoint => axios.get(`http://localhost:8080/${endpoint}`))
+          endpoints.map(endpoint => axios.get(`${apiUrl}/api/v1/${endpoint}`))
       );
 
       const [typeData, yearData, categoryData, countryData, actorData, directorData] = responses.map(res => res.data);
