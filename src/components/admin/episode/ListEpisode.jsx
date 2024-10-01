@@ -38,10 +38,10 @@ export default function ListEpisode ({ listEp, setListEp, title }) {
   };
 
   return (
-    <div className='h-[1000px] border-[2px] rounded-md px-2 overflow-scroll'>
+    <div className='h-[1000px] bg-[#202c3c] rounded-md px-2 overflow-scroll'>
       {/* HEADER */}
       <div className='flex justify-center items-center'>
-        <h1 className='text-2xl my-4 font-bold'>{title}</h1>
+        <h1 className='text-2xl my-4 font-bold text-white'>{title}</h1>
       </div>
 
       {/* LIST EPISODE CARD */}

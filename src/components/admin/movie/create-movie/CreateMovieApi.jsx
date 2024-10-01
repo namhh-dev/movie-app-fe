@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import MovieForm from './MovieForm';
-import ListEpisode from '../episode/ListEpisode';
-import Loading from '../../loading/Loading';
-import { createMovie, handleAutoFillEpisodeData, handleAutoFillMovieData, resMovie } from '../../../services/movieService';
-import { Alert } from '../../alert/Alert';
-import { validateLink } from '../../../services/validator';
+import ListEpisode from '../../episode/ListEpisode';
+import Loading from '../../../loading/Loading';
+import { createMovie, handleAutoFillEpisodeData, handleAutoFillMovieData, resMovie } from '../../../../services/movieService';
+import { Alert } from '../../../alert/Alert';
+import { validateLink } from '../../../../services/validator';
+import FormCreateMovie from './FormCreateMovie';
+import { Chip } from '@material-tailwind/react';
+import { IconAdd, IconDownload } from '../../../icon/Icon';
 
 export default function CreateMovieApi() {
     const [data, setData] = useState("");
+
+    const [isCreating, setIsCreating] = useState(false);
     
     // default state movie data
     const defaultState = {
-        name: "", slug: "", originName: "", content: "", type: "", status: false,
+        name: "", slug: "", originName: "", content: "", type: "series", status: false,
         posterUrl: "", thumbUrl: "", time: "", epCurrent: "", epTotal: "",
-        quality: "", lang: "", year: [], category: [], country: [], actor: [], director: []
+        quality: "HD", lang: "Vietsub", year: "2024", category: [], country: [], actor: [], director: []
     };
     
     // state of movie data
@@ -73,18 +77,25 @@ export default function CreateMovieApi() {
 
     // function to handle movie creation
     const handleCreateMovie = async () => {
-        // call API to create movie with current movie state and episode list
-        const result = await createMovie({ movie: state, episode: listEp });
-
-        // if movie creation is successful ? reset the form : show an error alert
-        if (result&&(result.status === 200 || result.status === 201)) {
-            setState(defaultState);
-            setListEp([]);
-            Alert(1500, 'Thông báo', result.data.message, 'success', 'OK');
-        } else {
-            Alert(2000, 'Thông báo', result.data.message||'Không thể tạo phim', 'error', 'OK');
+        setIsCreating(true);
+        try {
+            // call API to create movie with current movie state and episode list
+            const result = await createMovie({ movie: state, episode: listEp });
+            // if movie creation is successful ? reset the form : show an error alert
+            if (result&&(result.status === 200 || result.status === 201)) {
+                setState(defaultState);
+                setListEp([]);
+                Alert(1500, 'Thông báo', result.data.message, 'success', 'OK');
+            } else {
+                Alert(2000, 'Thông báo', result.data.message||'Không thể tạo phim!', 'error', 'OK');
+            }
+        } catch (error) {
+            Alert(2000, 'Thông báo', 'Có lỗi xảy ra trong quá trình tạo phim. Vui lòng thử lại!', 'error', 'OK');
+        }finally{
+            setIsCreating(false);
         }
     };
+    
 
     return (
         <>
@@ -100,8 +111,8 @@ export default function CreateMovieApi() {
                     />
                 </div>
                 <div className="col-4 mb-4 flex gap-5">
-                    <button onClick={handleCallMovieApi} className="text-white bg-gray-700 hover:bg-gray-800 rounded-lg text-sm px-5 py-2.5">
-                        Lấy data
+                    <button disabled={isCallApi?true:false} onClick={handleCallMovieApi} className={`${isCallApi?'cursor-not-allowed':'cursor-pointer'}`}>
+                        <Chip icon={<IconDownload />} variant='gradient' value="Lấy dữ liệu phim" color={isCallApi?'':'cyan'} className={`text-white hover:bg-gray-800 rounded-lg text-md ${isCallApi?'bg-gray-700':'bg-gray-500'}`}/>
                     </button>
                     {isCallApi && <Loading />} {/* Show loading spinner during API call */}
                 </div>
@@ -112,16 +123,19 @@ export default function CreateMovieApi() {
             {/* Content section with movie form (left) and episode list (right) */}
             <div className="grid gap-2 my-6 sm:grid-cols-1 lg:grid-cols-2 lg:h-[1000px]">
                 {/* Left side: Movie form inputs */}
-                <MovieForm state={state} updateState={updateState} optionState={optionState} updateOptionState={updateOptionState} />
+                <FormCreateMovie state={state} updateState={updateState} optionState={optionState} updateOptionState={updateOptionState} />
                 
                 {/* Right side: Episode management */}
                 <ListEpisode listEp={listEp} setListEp={setListEp} title="EPISODE" />
             </div>
 
             {/* Button to create a new movie */}
-            <button onClick={handleCreateMovie} className="text-white bg-gray-700 hover:bg-gray-800 rounded-lg text-md px-10 py-2.5">
-                Tạo phim
-            </button>
+            <div className="col-4 mb-4 flex gap-5">
+                <button disabled={isCreating?true:false} onClick={handleCreateMovie} className={`${isCreating?'cursor-not-allowed':'cursor-pointer'}`}>
+                    <Chip icon={<IconAdd />} variant='gradient' value="Tạo phim" color={isCreating?'':'green'} className={`text-white hover:bg-gray-800 rounded-lg text-md ${isCreating?'bg-gray-700':'bg-gray-500'}`}/>
+                </button>
+                {isCreating && <Loading />} {/* Show loading spinner during API call */}
+            </div>
         </>
     );
 }

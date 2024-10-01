@@ -46,27 +46,27 @@ export default function EpisodeCard({ episode, handleDeleteEp, handleUpdateEp })
         <div className='flex justify-between items-center'>
           <span onClick={() => setIsDisplayElement(!isDisplayElement)} className='cursor-pointer'>
             {isDisplayElement ?
-              <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" viewBox="0 0 24 24">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m16 17-4-4-4 4m8-6-4-4-4 4" />
+              <svg className="w-6 h-6  text-white" aria-hidden="true" viewBox="0 0 24 24">
+                <path stroke="currentColor" fill='none' strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m16 17-4-4-4 4m8-6-4-4-4 4" />
               </svg> :
-              <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" viewBox="0 0 24 24">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m8 7 4 4 4-4m-8 6 4 4 4-4" />
+              <svg className="w-6 h-6  text-white" aria-hidden="true" viewBox="0 0 24 24">
+                <path stroke="currentColor" fill='none' strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m8 7 4 4 4-4m-8 6 4 4 4-4" />
               </svg>
             }
           </span>
 
-          <span className='font-bold text-md text-center'>{episode.filename}</span>
+          <span className='font-bold text-md text-center text-white'>{episode.filename}</span>
 
           <div className='flex gap-2'>
             <span onClick={() => setIsEditing(!isEditing)} className='cursor-pointer'>
-              <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" viewBox="0 0 24 24">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+              <svg className="w-6 h-6 t text-white" aria-hidden="true" viewBox="0 0 24 24">
+                <path stroke="currentColor" fill='none' strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
               </svg>
             </span>
 
             <span onClick={() => handleDeleteEp(episode.id)} className='cursor-pointer'>
-              <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" viewBox="0 0 24 24">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L17.94 6M18 18L6.06 6" />
+              <svg className="w-6 h-6  text-white" aria-hidden="true" viewBox="0 0 24 24">
+                <path stroke="currentColor" fill='none' strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L17.94 6M18 18L6.06 6" />
               </svg>
             </span>
           </div>
@@ -90,17 +90,17 @@ export default function EpisodeCard({ episode, handleDeleteEp, handleUpdateEp })
           <div className={`transition-all duration-500 ease-in-out ${isDisplayElement ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
             <hr className='mt-2' />
             <div className='p-2'>
-              <label className='block text-[15px] font-bold text-gray-800 dark:text-white pt-3'>Title</label>
-              <p className='pb-1'>{episode.filename}</p>
+              <label className='block text-[15px] font-bold text-[#1496d5] pt-3'>Title</label>
+              <p className='pb-1 text-white'>{episode.filename}</p>
               <hr />
-              <label className='block text-[15px] font-bold text-gray-800 dark:text-white pt-3'>Name</label>
-              <p className='line-clamp-1 pb-1'>{episode.name}</p>
+              <label className='block text-[15px] font-bold text-[#1496d5] pt-3'>Name</label>
+              <p className='line-clamp-1 pb-1 text-white'>{episode.name}</p>
               <hr />
-              <label className='block text-[15px] font-bold text-gray-800 dark:text-white pt-3'>Slug</label>
-              <p className='line-clamp-1 pb-1'>{episode.slug}</p>
+              <label className='block text-[15px] font-bold text-[#1496d5] pt-3'>Slug</label>
+              <p className='line-clamp-1 pb-1 text-white'>{episode.slug}</p>
               <hr />
-              <label className='block text-[15px] font-bold text-gray-800 dark:text-white pt-3'>Link</label>
-              <p className='pb-1'>{episode.link_embed}</p>
+              <label className='block text-[15px] font-bold text-[#1496d5] pt-3'>Link</label>
+              <p className='pb-1 text-white'>{episode.link_embed}</p>
             </div>
           </div>
         )}
