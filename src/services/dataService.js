@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_ROOT } from '../constants/constants';
 
-const apiUrl = process.env.REACT_APP_BACKEND_URL;
+const apiUrl = API_ROOT;
 
 export const fetchDataOptions = async (updateOptionState, setIsLoading) => {
     setIsLoading(true);

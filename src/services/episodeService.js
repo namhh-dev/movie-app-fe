@@ -1,6 +1,7 @@
 import axios from "axios";
-const apiUrl = process.env.REACT_APP_BACKEND_URL;
+import { API_ROOT } from '../constants/constants';
 
+const apiUrl = API_ROOT;
 // Function get episode by id
 export const getEpisodeById = async (id) => {
     try {

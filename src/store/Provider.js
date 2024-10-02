@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import Context from './Context';
 import axios from "axios";
+import { API_ROOT } from '../constants/constants';
 
 const Provider = ({ children }) => {
-    const apiUrl = process.env.REACT_APP_BACKEND_URL;
+
+    const apiUrl = API_ROOT;
     const [isLoading, setIsLoading] = useState(false);
 
     const [categories, setCategories] = useState([]);
