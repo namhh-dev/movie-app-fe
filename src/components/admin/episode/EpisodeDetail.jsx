@@ -185,7 +185,6 @@ const EpisodeDetail = React.memo(({ movId }) => {
                 </div>
             </>
             }
-            <Scroll isVisible={isVisible}/>
         </div>
     )
 });
