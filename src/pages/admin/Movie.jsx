@@ -3,7 +3,6 @@ import AdminLayout from "../../components/admin/AdminLayout";
 import AdminNavbar from "../../components/navbar/AdminNavbar";
 import CreateMovieApi from "../../components/admin/movie/create-movie/CreateMovieApi";
 import ListMovieAdmin from "../../components/admin/movie/list-movie/ListMovieAdmin";
-import { IconArrowDown, IconArrowUp } from "../../components/icon/Icon";
 import Scroll from "../../components/common/Scroll";
 
 const childComponent = [<ListMovieAdmin />, <CreateMovieApi />];
