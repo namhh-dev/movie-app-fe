@@ -18,6 +18,7 @@ export default function MovieDetailAdmin() {
   const [isLoading, setIsLoading] = useState(!movie);
   const [isUpdating, setIsUpdating] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   
   const location = useLocation();
   const previousUrl = location.state?.location;
@@ -66,6 +67,23 @@ export default function MovieDetailAdmin() {
   };
 
   useEffect(() => {
+      const handleScroll = () => {
+      // When scrolled down, the element will appear
+      if (window.scrollY > 100) {
+          setIsVisible(true);
+      } else {
+          setIsVisible(false);
+      }
+      };
+
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+          window.removeEventListener('scroll', handleScroll);
+      };
+  }, []);
+
+  useEffect(() => {
     fetchMovie();
   }, []);
 
@@ -112,7 +130,7 @@ export default function MovieDetailAdmin() {
 
   if (isLoading) {
     return( 
-      <AdminLayout>
+      <AdminLayout isVisible={isVisible} index={0}>
           <div className="flex justify-center items-center bg-[rgb(16,20,44)] h-screen text-white sm:p-4">
             <Loading />
           </div>
@@ -121,7 +139,7 @@ export default function MovieDetailAdmin() {
   
   if (!movie || !state || !optionState) {
     return (
-    <AdminLayout>
+    <AdminLayout isVisible={isVisible} index={0}>
         <div className="flex flex-col justify-center items-center bg-[rgb(16,20,44)] h-screen text-white sm:p-4">
           <div className="flex gap-2 mb-4">
             <IconHome />
@@ -133,7 +151,7 @@ export default function MovieDetailAdmin() {
   )}
 
   return (
-    <AdminLayout>
+    <AdminLayout isVisible={isVisible} index={0}>
       <div class=" bg-[rgb(16,20,44)] h-full min-h-screen py-4 px-10 mobile-xl:px-16">
         <Breadcrumbs movie={movie}/>
         <div className="p-6 bg-[#202c3c] text-white rounded-md">

@@ -11,6 +11,7 @@ import MovieCategory from './pages/user/movie/MovieCategory';
 import MovieYear from './pages/user/movie/MovieYear';
 import MovieCountry from './pages/user/movie/MovieCountry';
 import MovieSearch from './pages/user/movie/MovieSearch';
+import CreateMovie from './pages/admin/movie/CreateMovie';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       {/* admin router */}
       <Routes>
         <Route path="/admin/movie" element={<HomeAdmin />} />
+        <Route path="/admin/create-movie" element={<CreateMovie />} />
         <Route path="/admin/movie-detail/:slug" element={<MovieDetailAdmin />} />
       </Routes>
 

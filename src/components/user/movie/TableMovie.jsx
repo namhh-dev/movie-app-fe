@@ -61,7 +61,6 @@ const ImageUpload = ({ url }) => (
 
 const ImagePreview = ({ url }) => (
     <LazyLoadImage src={url}
-        PlaceholderSrc={url}
         effect="blur"
         className={`w-full h-full border rounded shadow object-cover`}
     />

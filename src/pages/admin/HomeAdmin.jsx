@@ -1,13 +1,8 @@
 import React from "react";
-import AdminLayout from "../../components/admin/AdminLayout";
-import Movie from "./Movie";
+import Movie from "./movie/Movie";
 
 export default function HomeAdmin() {
   return (
-    <>
-      <AdminLayout >
-        <Movie />
-      </AdminLayout >
-    </>
+    <Movie />
   );
 }
