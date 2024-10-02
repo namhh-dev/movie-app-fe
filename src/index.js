@@ -7,11 +7,11 @@ import Provider from './store/Provider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <React.Suspense fallback={<div>Loading...</div>}>
     <Provider>
         <App />
     </Provider>
-  </React.StrictMode>
+  </React.Suspense>
 );
 
 // If you want to start measuring performance in your app, pass a function
