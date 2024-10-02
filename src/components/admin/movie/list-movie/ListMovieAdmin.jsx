@@ -23,7 +23,7 @@ export default function ListMovieAdmin() {
     return acc;
   }, {});
   
-  const { categories, countries, types } = context;
+  const { categories, countries, years, types, actors, directors, isLoading } = context;
 
   const [movies, setMovies] = useState([]); // state movies data
   
@@ -35,7 +35,7 @@ export default function ListMovieAdmin() {
   const [totalMovies, setTotalMovies] = useState(0);  // state total result response
 
   // state -> handle loading status and search
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadings, setIsLoadings] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
 
   // Initial state for filters
@@ -72,7 +72,7 @@ export default function ListMovieAdmin() {
 
   // General function to fetch movies
   const fetchMovies = async (page, fetchFunction, params = {}) => {
-    setIsLoading(true); // Set loading status to true
+    setIsLoadings(true); // Set loading status to true
     try {
       // Fetch movies using the provided function
       const data = await fetchFunction(params, page);
@@ -96,7 +96,7 @@ export default function ListMovieAdmin() {
     } catch (error) {
       console.error(error); // Log error if the API call fails
     } finally {
-      setIsLoading(false);  // Set loading status to false once complete
+      setIsLoadings(false);  // Set loading status to false once complete
     }
   };
 
@@ -249,7 +249,7 @@ export default function ListMovieAdmin() {
           </div>
         </div>
 
-        {isLoading || !movies
+        {isLoadings || !movies
         ?
           // Render loading screen if data is being fetched
           <div className="flex justify-center items-center h-screen text-white">
@@ -271,7 +271,7 @@ export default function ListMovieAdmin() {
         }
 
         {/* pagination */}
-        {(!isLoading&&totalMovies!==0)&&<Pagination currentPage={currentPage} totalDatas={totalMovies} totalPages={totalPages} onPageChange={onPageChange} handlePagination={handlePagination}/>}
+        {(!isLoadings&&totalMovies!==0)&&<Pagination currentPage={currentPage} totalDatas={totalMovies} totalPages={totalPages} onPageChange={onPageChange} handlePagination={handlePagination}/>}
       </div>
   )
 }

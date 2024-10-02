@@ -46,8 +46,9 @@ const Provider = ({ children }) => {
         fetchData();
     }, []);
     
-    return (<Context.Provider value={{categories, countries, years, types, actors, directors, isLoading}}>
-        {children}
+    return (
+        <Context.Provider value={{categories, countries, years, types, actors, directors, isLoading}}>
+            {children}
         </Context.Provider>
     );
 }
