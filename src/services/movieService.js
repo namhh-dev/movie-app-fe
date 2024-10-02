@@ -1,7 +1,8 @@
 import axios from "axios";
 import { Alert } from "../components/alert/Alert";
-const apiUrl = process.env.REACT_APP_BACKEND_URL;
+import { API_ROOT } from '../constants/constants';
 
+const apiUrl = API_ROOT;
 const province = axios.create({
     baseURL: "",
 });
