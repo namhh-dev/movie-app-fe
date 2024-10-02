@@ -24,7 +24,7 @@ export default function MovieDetailAdmin() {
 
   const navigate = useNavigate();
   
-  const {categories, countries, years, types, actors, directors, isLoadings} = useStore();
+  const {categories, countries, years, types, actors, directors} = useStore();
 
   // Utility function to format options
   const formatOptions = (data, valueField, labelField, slugField = null) =>

@@ -1,7 +1,7 @@
 import React from 'react';
 import InputComponent from '../../../input/InputComponent';
 import { SelectComponent, SingleSelectComponent } from '../../../input/SelectComponent';
-import { Button, Chip } from '@material-tailwind/react';
+import { Button } from '@material-tailwind/react';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
 import { IconSave } from '../../../icon/Icon';
