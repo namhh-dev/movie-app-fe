@@ -16,7 +16,7 @@ export default function MovieCardList({ movie, location, onClick }) {
         {title: "Ngôn ngữ", value: movie.lang},
         {title: "Đạo diễn", value: movie.Directors.length>0?movie.Directors.map((director)=>director.dir_name).join(", "):"Đang cập nhật"},
         {title: "Diễn viên", value: movie.Actors.length>0&&movie.Actors.map((actor)=>actor.act_name).join(", ")},
-        {title: "Thể loại", value: movie.Type.type_name},
+        {title: "Thể loại", value: movie.Type&&movie.Type.type_name},
         {title: "Danh mục", value: movie.Categories.length>0&&movie.Categories.map((cat)=>cat.cat_name).join(", ")},
         {title: "Quốc gia", value: movie.Countries.length>0?movie.Countries.map((ctr)=>ctr.ctr_name).join(", "):"Đang cập nhật"}];
 

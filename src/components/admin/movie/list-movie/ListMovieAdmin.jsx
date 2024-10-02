@@ -13,17 +13,16 @@ import { useStore } from '../../../../hooks/useStore';
 export default function ListMovieAdmin() {
   const navigate = useNavigate();
   const location = useLocation();
-  const context = useStore();
 
   const [filterParams] = useSearchParams();
   const keys = ['query', 'year', 'type', 'cat', 'ctr', 'lang', 'qua', 'act', 'dir'];
   
   const { query, year, type, cat, ctr, lang, qua, act, dir } = keys.reduce((acc, key) => {
-    acc[key] = filterParams.get(key);
+    acc[key] = filterParams.get(key) || '';;
     return acc;
   }, {});
   
-  const { categories, countries, years, types, actors, directors, isLoading } = context;
+  const { categories, countries, years, types, actors, directors, isLoading } = useStore();
 
   const [movies, setMovies] = useState([]); // state movies data
   
@@ -52,9 +51,13 @@ export default function ListMovieAdmin() {
   });
 
   const updateSortParameter = (sortValue) => {
+    const validSortValues = [1, 2, 3]; // Define valid values ​​for sort
+    if (!validSortValues.includes(sortValue)) {
+      return; // Avoid changing URL if value is invalid
+    }
     const url = new URL(window.location);
-    url.searchParams.set('sort', sortValue); // Cập nhật hoặc thêm giá trị sort
-    return url.pathname + url.search; // Trả về URL mới
+    url.searchParams.set('sort', sortValue); // Update or add sort value
+    return url.pathname + url.search; // Returns new URL
   };
 
   const sortOptions = [
@@ -214,9 +217,9 @@ export default function ListMovieAdmin() {
     lang,
     qua,
     year,
-    types.filter(t => t.type_slug === type).map(t => t.type_name).join(", "),
-    categories.filter(cate => cate.cat_slug === cat).map(cate => cate.cat_name).join(", "),
-    countries.filter(coun => coun.ctr_slug === ctr).map(coun => coun.ctr_name).join(", "),
+    types&&types.length>0?types.filter(t => t.type_slug === type).map(t => t.type_name).join(", "):'',
+    categories&&categories.length>0?categories.filter(cate => cate.cat_slug === cat).map(cate => cate.cat_name).join(", "):'',
+    countries&&countries.length>0?countries.filter(coun => coun.ctr_slug === ctr).map(coun => coun.ctr_name).join(", "):'',
     act,
     dir
   ];

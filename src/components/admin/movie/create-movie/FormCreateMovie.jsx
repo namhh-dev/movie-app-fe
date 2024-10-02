@@ -15,17 +15,17 @@ export default function FormCreateMovie({ state, updateState, optionState ,updat
         updateOptionState('countryOptions', formatOptions(countries, 'ctr_id', 'ctr_name', 'cat_slug'));
         updateOptionState('actorOptions', formatOptions(actors, 'act_id', 'act_name'));
         updateOptionState('directorOptions', formatOptions(directors, 'dir_id', 'dir_name'));
-    }, []);
+    }, [categories, countries, years, types, actors, directors]);
 
     // Utility function to format options
     const formatOptions = (data, valueField, labelField, slugField = null) =>
-        data.map(item => ({
+        (data || []).map(item => ({
             ...item,
-            // add field value and label to use in <Select /> library
             value: item[valueField], 
             label: item[labelField],
             ...(slugField && { slug: item[slugField] }),
     }));
+   
 
     // Function for select changes
     const handleSelectChange = (field, selected) => {
@@ -74,7 +74,7 @@ export default function FormCreateMovie({ state, updateState, optionState ,updat
                 <label htmlFor="content" className="block mb-2 text-md font-bold text-[#1496d5]">Content</label>
                 <SunEditor 
                     className="custom-dark-mode"
-                    setContents={state.content}
+                    setContents={state.content || ''}
                     setOptions={{
                     minHeight: '300px',
                     autoHeight: true,
@@ -127,5 +127,8 @@ const Images = ({ state, updateState }) => (
   
 // ImagePreview Component
 const ImagePreview = ({ url, alt }) => (
-    <img src={url} alt={alt} className={`w-full min-w-[70px]  min-h-[50px] h-full border rounded shadow object-cover`} onError={(e) => e.target.style.display = 'none'} />
+    <img src={url} alt={alt} className="w-full min-w-[70px] min-h-[50px] h-full border rounded shadow object-cover"
+     onError={(e) => {
+         e.target.style.display = 'none';
+     }} />
 );
