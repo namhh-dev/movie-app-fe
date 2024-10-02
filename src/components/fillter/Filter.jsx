@@ -4,7 +4,7 @@ import { useStore } from '../../hooks/useStore';
 import { FilterInput } from '../input/InputComponent';
 
 const Filter = ({ filters, updateState, handleKeyDown }) => {
-  const { categories, countries, years, types } = useStore(); // Fetching options from the store
+  const { categories, countries, years, types, actors, directors, isLoading } = useStore(); // Fetching options from the store
 
   // Utility function to format options for select inputs
   const formatOptions = (data, valueField, labelField, slugField = null) =>
