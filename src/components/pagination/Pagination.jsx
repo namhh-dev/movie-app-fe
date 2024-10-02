@@ -1,13 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React from "react";
 
-export default function Pagination({
-  currentPage,
-  totalDatas,
-  totalPages,
-  onPageChange,
-  handlePagination,
-}) {
+export default function Pagination({ currentPage, totalDatas, totalPages, onPageChange, handlePagination }) {
   // Logic to show only 5 pages at a time
   const getPageRange = () => {
     const range = [];

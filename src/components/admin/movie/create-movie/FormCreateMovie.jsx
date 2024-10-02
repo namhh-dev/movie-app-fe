@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import InputComponent from '../../../input/InputComponent';
 import { SelectComponent, SingleSelectComponent} from '../../../input/SelectComponent';
@@ -7,7 +6,7 @@ import SunEditor from 'suneditor-react';
 
 
 export default function FormCreateMovie({ state, updateState, optionState ,updateOptionState }) {
-    const {categories, countries, years, types, actors, directors, isLoading} = useStore();
+    const {categories, countries, years, types, actors, directors} = useStore();
 
     useEffect(() => {
         updateOptionState('typeOptions', formatOptions(types, 'type_slug', 'type_name'));
