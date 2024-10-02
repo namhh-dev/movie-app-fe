@@ -7,11 +7,13 @@ import { validateLink } from '../../../../services/validator';
 import FormCreateMovie from './FormCreateMovie';
 import { Chip } from '@material-tailwind/react';
 import { IconAdd, IconDownload } from '../../../icon/Icon';
+import AdminLayout from '../../AdminLayout';
 
 export default function CreateMovieApi() {
     const [data, setData] = useState("");
 
     const [isCreating, setIsCreating] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     
     // default state movie data
     const defaultState = {
@@ -58,6 +60,23 @@ export default function CreateMovieApi() {
         setIsCallApi(false);
     };
 
+    useEffect(() => {
+        const handleScroll = () => {
+        // When scrolled down, the element will appear
+        if (window.scrollY > 100) {
+            setIsVisible(true);
+        } else {
+            setIsVisible(false);
+        }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     // when movie data is updated -> auto-fills data
     useEffect(() => {
         if (isDataUpdated && data) {
@@ -95,10 +114,9 @@ export default function CreateMovieApi() {
             setIsCreating(false);
         }
     };
-    
 
     return (
-        <>
+        <AdminLayout isVisible={isVisible} index={1}>
             {/* input section to fetch movie data via API */}
             <div className="row-auto h-full">
                 <div className="col-8 mb-4">
@@ -136,6 +154,6 @@ export default function CreateMovieApi() {
                 </button>
                 {isCreating && <Loading />} {/* Show loading spinner during API call */}
             </div>
-        </>
+        </AdminLayout>
     );
 }

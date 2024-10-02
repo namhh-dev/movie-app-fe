@@ -9,6 +9,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@material-tailwind/react';
 import DropDownFilter from '../../../common/DropDownFilter';
 import { useStore } from '../../../../hooks/useStore';
+import AdminLayout from '../../AdminLayout';
 
 export default function ListMovieAdmin() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ export default function ListMovieAdmin() {
   // state -> handle loading status and search
   const [isLoadings, setIsLoadings] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   // Initial state for filters
   const [filters, setFilters] = useState({
@@ -182,7 +184,23 @@ export default function ListMovieAdmin() {
       filterMovies(currentPage);  // Filter movies by current page
     }
   }, [query, year, type, cat, ctr, lang, qua, act, dir, isFilter, sort, currentPage]);
-  
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // When scrolled down, the element will appear
+      if (window.scrollY > 100) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const buildQueryString = () => {
     const params = new URLSearchParams();
@@ -227,6 +245,7 @@ export default function ListMovieAdmin() {
   const validValues = validResult.filter(value => value && value.length > 0).join(', ');
   
   return (
+    <AdminLayout isVisible={isVisible} index={0}>
       <div className="h-full min-h-[583px]">
         <div className='bg-[#202c3c] p-4 rounded-lg'>
           {/* Search input */}
@@ -276,5 +295,6 @@ export default function ListMovieAdmin() {
         {/* pagination */}
         {(!isLoadings&&totalMovies!==0)&&<Pagination currentPage={currentPage} totalDatas={totalMovies} totalPages={totalPages} onPageChange={onPageChange} handlePagination={handlePagination}/>}
       </div>
+    </AdminLayout>
   )
 }
