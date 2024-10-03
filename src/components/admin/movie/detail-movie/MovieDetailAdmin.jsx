@@ -10,6 +10,7 @@ import FormUpdateMovie from "./FormUpdateMovie";
 import { useStore } from "../../../../hooks/useStore";
 import { Button } from "@material-tailwind/react";
 import { IconBack, IconHome, IconTrash } from "../../../icon/Icon";
+import Scroll from "../../../common/Scroll";
 
 export default function MovieDetailAdmin() {
   const { slug } = useParams(); // Get the movie ID from the URL parameters
@@ -130,7 +131,7 @@ export default function MovieDetailAdmin() {
 
   if (isLoading) {
     return( 
-      <AdminLayout isVisible={isVisible} index={0}>
+      <AdminLayout index={0}>
           <div className="flex justify-center items-center bg-[rgb(16,20,44)] h-screen text-white sm:p-4">
             <Loading />
           </div>
@@ -139,7 +140,7 @@ export default function MovieDetailAdmin() {
   
   if (!movie || !state || !optionState) {
     return (
-    <AdminLayout isVisible={isVisible} index={0}>
+    <AdminLayout index={0}>
         <div className="flex flex-col justify-center items-center bg-[rgb(16,20,44)] h-screen text-white sm:p-4">
           <div className="flex gap-2 mb-4">
             <IconHome />
@@ -151,7 +152,7 @@ export default function MovieDetailAdmin() {
   )}
 
   return (
-    <AdminLayout isVisible={isVisible} index={0}>
+    <AdminLayout index={0}>
       <div class=" bg-[rgb(16,20,44)] h-full min-h-screen py-4 px-10 mobile-xl:px-16">
         <Breadcrumbs movie={movie}/>
         <div className="p-6 bg-[#202c3c] text-white rounded-md">
@@ -178,8 +179,8 @@ export default function MovieDetailAdmin() {
       
       {/* LIST EPISODE */}
       <EpisodeDetail movId={movie.mov_id}/>
-
     </div>
+    <Scroll isVisible={isVisible}/>
   </AdminLayout>
   );
 }

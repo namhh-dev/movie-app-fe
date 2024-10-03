@@ -10,6 +10,7 @@ import { Button } from '@material-tailwind/react';
 import DropDownFilter from '../../../common/DropDownFilter';
 import { useStore } from '../../../../hooks/useStore';
 import AdminLayout from '../../AdminLayout';
+import Scroll from '../../../common/Scroll';
 
 export default function ListMovieAdmin() {
   const navigate = useNavigate();
@@ -245,7 +246,7 @@ export default function ListMovieAdmin() {
   
   if(isLoadings || !movies){
     return(
-      <AdminLayout isVisible={isVisible} index={0}>
+      <AdminLayout index={0}>
         <div className="flex justify-center items-center h-screen text-white">
           <Loading />
         </div>
@@ -254,7 +255,7 @@ export default function ListMovieAdmin() {
   }
 
   return (
-    <AdminLayout isVisible={isVisible} index={0}>
+    <AdminLayout index={0}>
       <div className="h-full min-h-[583px]">
         <div className='bg-[#202c3c] p-4 rounded-lg'>
           {/* Search input */}
@@ -295,6 +296,7 @@ export default function ListMovieAdmin() {
         {/* pagination */}
         {(!isLoadings&&totalMovies!=0)&&<Pagination currentPage={currentPage} totalDatas={totalMovies} totalPages={totalPages} onPageChange={onPageChange} handlePagination={handlePagination}/>}
       </div>
+      <Scroll isVisible={isVisible}/>
     </AdminLayout>
   )
 }

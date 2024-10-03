@@ -7,7 +7,6 @@ import Loading from '../../loading/Loading';
 import { IconMaxize, IconMinimize, IconSave, IconSearch, IconTrash } from '../../icon/Icon';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Pagination from '../../pagination/Pagination';
-import Scroll from '../../common/Scroll';
 import DropDownFilter from '../../common/DropDownFilter';
 import EpisodeForm from './EpisodeForm';
 import SettingEpisodeMenu from '../../navbar/SettingEpisodeMenu';

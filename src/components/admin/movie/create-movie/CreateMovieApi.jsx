@@ -8,6 +8,7 @@ import FormCreateMovie from './FormCreateMovie';
 import { Chip } from '@material-tailwind/react';
 import { IconAdd, IconDownload } from '../../../icon/Icon';
 import AdminLayout from '../../AdminLayout';
+import Scroll from '../../../common/Scroll';
 
 export default function CreateMovieApi() {
     const [data, setData] = useState("");
@@ -116,7 +117,7 @@ export default function CreateMovieApi() {
     };
 
     return (
-        <AdminLayout isVisible={isVisible} index={1}>
+        <AdminLayout index={1}>
             {/* input section to fetch movie data via API */}
             <div className="row-auto h-full">
                 <div className="col-8 mb-4">
@@ -154,6 +155,8 @@ export default function CreateMovieApi() {
                 </button>
                 {isCreating && <Loading />} {/* Show loading spinner during API call */}
             </div>
+
+            <Scroll isVisible={isVisible}/>
         </AdminLayout>
     );
 }

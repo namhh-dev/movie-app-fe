@@ -45,11 +45,13 @@ export default function ListEpisode ({ listEp, setListEp, title }) {
       </div>
 
       {/* LIST EPISODE CARD */}
-      <Reorder.Group axis="y" values={listEp} onReorder={handleReorder}>
-        {listEp.map((episode) => (
-          <EpisodeCard key={episode.id} episode={episode} handleDeleteEp={handleDeleteEp} handleUpdateEp={handleUpdateEp}/>
-        ))}
-      </Reorder.Group>
+      {listEp&&
+        <Reorder.Group axis="y" values={listEp} onReorder={handleReorder}>
+          {listEp.map((episode) => (
+            <EpisodeCard key={episode.id} episode={episode} handleDeleteEp={handleDeleteEp} handleUpdateEp={handleUpdateEp}/>
+          ))}
+        </Reorder.Group>
+      }
 
       {/* FORM CREATE - BUTTON OPEN FORM */} 
       {isOpenForm 

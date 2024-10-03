@@ -2,7 +2,7 @@ import React from 'react';
 import Scroll from '../common/Scroll';
 import AdminNavbar from '../navbar/AdminNavbar';
 
-export default function AdminLayout({ children, isVisible, index }) {
+export default function AdminLayout({ children, index }) {
   return (
     <div className="bg-[rgb(16,20,44)] w-full h-full">
         <div class="py-4">
@@ -12,8 +12,6 @@ export default function AdminLayout({ children, isVisible, index }) {
           <div class="py-2 px-10 mobile-xl:px-16 rounded-lg backdrop-blur-lg">
           { children }
           </div>
-
-          <Scroll isVisible={isVisible}/>
         </div>
     </div>
   )
