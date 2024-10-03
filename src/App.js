@@ -16,20 +16,14 @@ import CreateMovie from './pages/admin/movie/CreateMovie';
 function App() {
   return (
     <Router>
-      {/* admin router */}
       <Routes>
+        {/* admin router */}
         <Route path="/admin/movie" element={<HomeAdmin />} />
         <Route path="/admin/create-movie" element={<CreateMovie />} />
         <Route path="/admin/movie-detail/:slug" element={<MovieDetailAdmin />} />
-      </Routes>
 
-      {/* user router */}
-      <Routes>
+        {/* user router */}
         <Route path="/" element={<HomeUser />} />
-      </Routes>
-
-      {/* user router */}
-      <Routes>
         <Route path="/movie/type/:typeSlug" element={<MovieType />} />
         <Route path="/movie/category/:catSlug" element={<MovieCategory />} />
         <Route path="/movie/country/:ctrSlug" element={<MovieCountry />} />
