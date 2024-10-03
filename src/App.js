@@ -19,7 +19,7 @@ function App() {
       <Routes>
         {/* admin router */}
         <Route path="/admin/movie" element={<HomeAdmin />} />
-        <Route path="/admin/create-movie" element={<CreateMovie />} />
+        <Route path="/admin/movie-create" element={<CreateMovie />} />
         <Route path="/admin/movie-detail/:slug" element={<MovieDetailAdmin />} />
 
         {/* user router */}

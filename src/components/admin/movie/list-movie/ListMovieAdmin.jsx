@@ -19,25 +19,21 @@ export default function ListMovieAdmin() {
   const [filterParams] = useSearchParams();
   const keys = ['query', 'year', 'type', 'cat', 'ctr', 'lang', 'qua', 'act', 'dir'];
   
+  const { categories, countries, types } = useStore();
+
+  const [movies, setMovies] = useState([]);
+  const params = new URLSearchParams(location.search);
+  const currentPage = parseInt(params.get("page")) || 1;
+  const [totalPages, setTotalPages] = useState(1);    // state total page
+  const [totalMovies, setTotalMovies] = useState(0);  // state total result response
+  const [isLoadings, setIsLoadings] = useState(false);
+  const [isFilter, setIsFilter] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
   const { query, year, type, cat, ctr, lang, qua, act, dir } = keys.reduce((acc, key) => {
     acc[key] = filterParams.get(key) || '';;
     return acc;
   }, {});
-  
-  const { categories, countries, years, types, actors, directors, isLoading } = useStore();
-
-  const [movies, setMovies] = useState([]); // state movies data
-
-  const params = new URLSearchParams(location.search);
-  const currentPage = parseInt(params.get("page")) || 1;
-
-  const [totalPages, setTotalPages] = useState(1);    // state total page
-  const [totalMovies, setTotalMovies] = useState(0);  // state total result response
-
-  // state -> handle loading status and search
-  const [isLoadings, setIsLoadings] = useState(false);
-  const [isFilter, setIsFilter] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
 
   // Initial state for filters
   const [filters, setFilters] = useState({
@@ -168,6 +164,7 @@ export default function ListMovieAdmin() {
   }
 
   useEffect(() => {
+    
     // General condition to check filters or queries
     const hasFilters = query || year || type || cat || ctr || lang || qua || act || dir;
   
@@ -197,8 +194,8 @@ export default function ListMovieAdmin() {
 
     window.addEventListener('scroll', handleScroll);
 
-    return () => {
-        window.removeEventListener('scroll', handleScroll);
+    return function cleanup() {
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -246,11 +243,9 @@ export default function ListMovieAdmin() {
   
   if(isLoadings || !movies){
     return(
-      <AdminLayout index={0}>
-        <div className="flex justify-center items-center h-screen text-white">
-          <Loading />
-        </div>
-      </AdminLayout>
+      <div className="flex justify-center items-center h-screen text-white">
+        <Loading />
+      </div>
     )
   }
 

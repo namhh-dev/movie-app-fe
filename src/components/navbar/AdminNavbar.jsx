@@ -13,7 +13,7 @@ export default function AdminNavbar({ page }) {
   
   const navigation = [
     { name: 'Danh sách phim', href: '/admin/movie' },
-    { name: 'Tạo phim', href: '/admin/create-movie' },
+    { name: 'Tạo phim', href: '/admin/movie-create' },
   ]
 
   return (

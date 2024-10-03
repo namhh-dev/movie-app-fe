@@ -12,11 +12,11 @@ export default function Dropdowns() {
     });
       
     const toggleDropdown = (type) => {
-    setDropdownState((prevState) => ({
-        isCategoryOpen: type === 'category' ? !prevState.isCategoryOpen : false,
-        isCountryOpen: type === 'country' ? !prevState.isCountryOpen : false,
-        isYearOpen: type === 'year' ? !prevState.isYearOpen : false
-    }));
+      setDropdownState((prevState) => ({
+          isCategoryOpen: type === 'category' ? !prevState.isCategoryOpen : false,
+          isCountryOpen: type === 'country' ? !prevState.isCountryOpen : false,
+          isYearOpen: type === 'year' ? !prevState.isYearOpen : false
+      }));
     };
     
     return (
