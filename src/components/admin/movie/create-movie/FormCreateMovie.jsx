@@ -3,6 +3,7 @@ import InputComponent from '../../../input/InputComponent';
 import { SelectComponent, SingleSelectComponent} from '../../../input/SelectComponent';
 import { useStore } from '../../../../hooks/useStore';
 import SunEditor from 'suneditor-react';
+import Loading from '../../../loading/Loading';
 
 
 export default function FormCreateMovie({ state, updateState, optionState ,updateOptionState }) {
@@ -35,6 +36,15 @@ export default function FormCreateMovie({ state, updateState, optionState ,updat
     const handleChangeContent = (content) => {
         updateState("content", content);
     }
+
+    if(!optionState.typeOptions ||!optionState.yearOptions ||!optionState.categoryOptions ||
+        !optionState.countryOptions ||!optionState.actorOptions ||!optionState.directorOptions){
+        return(
+            <div className="flex justify-center items-center h-screen text-white">
+                <Loading />
+            </div>
+        )
+    }
     
     return (
         <div className='bg-[#202c3c] h-[1000px] px-4 rounded-md overflow-scroll scrollbar-hidden'>
@@ -64,10 +74,10 @@ export default function FormCreateMovie({ state, updateState, optionState ,updat
 
             {/* Category -  Country - Year - Actor - Director */}
             <SingleSelectComponent title="Year" id="year" options={optionState.yearOptions} value={state.year||''} onChange={(e)=>updateState("year", e.target.value)} />
-            <SelectComponent title="Category" id="category" options={optionState.categoryOptions} value={state.category||''} onChange={value => handleSelectChange('category', value)} />
-            <SelectComponent title="Country" id="country" options={optionState.countryOptions} value={state.country||''} onChange={value => handleSelectChange('country', value)} />
-            <SelectComponent title="Actor" id="actor" options={optionState.actorOptions} value={state.actor||''} onChange={value => handleSelectChange('actor', value)} />
-            <SelectComponent title="Director" id="director" options={optionState.directorOptions} value={state.director||''} onChange={value => handleSelectChange('director', value)} />
+            <SelectComponent title="Category" id="category" options={optionState.categoryOptions} value={state.category||''} onChange={value => handleSelectChange('category', value)} zIndex="50"/>
+            <SelectComponent title="Country" id="country" options={optionState.countryOptions} value={state.country||''} onChange={value => handleSelectChange('country', value)} zIndex="40"/>
+            <SelectComponent title="Actor" id="actor" options={optionState.actorOptions} value={state.actor||''} onChange={value => handleSelectChange('actor', value)} zIndex="30"/>
+            <SelectComponent title="Director" id="director" options={optionState.directorOptions} value={state.director||''} onChange={value => handleSelectChange('director', value)} zIndex="20"/>
 
             {/* Content */}
             <div className="mb-4">

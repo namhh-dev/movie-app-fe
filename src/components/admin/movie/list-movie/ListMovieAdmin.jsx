@@ -26,7 +26,6 @@ export default function ListMovieAdmin() {
   const { categories, countries, years, types, actors, directors, isLoading } = useStore();
 
   const [movies, setMovies] = useState([]); // state movies data
-  
 
   const params = new URLSearchParams(location.search);
   const currentPage = parseInt(params.get("page")) || 1;
@@ -244,6 +243,16 @@ export default function ListMovieAdmin() {
   
   const validValues = validResult.filter(value => value && value.length > 0).join(', ');
   
+  if(isLoadings || !movies){
+    return(
+      <AdminLayout isVisible={isVisible} index={0}>
+        <div className="flex justify-center items-center h-screen text-white">
+          <Loading />
+        </div>
+      </AdminLayout>
+    )
+  }
+
   return (
     <AdminLayout isVisible={isVisible} index={0}>
       <div className="h-full min-h-[583px]">
@@ -271,29 +280,20 @@ export default function ListMovieAdmin() {
           </div>
         </div>
 
-        {isLoadings || !movies
-        ?
-          // Render loading screen if data is being fetched
-          <div className="flex justify-center items-center h-screen text-white">
-            <Loading />
-          </div>
-        :
-          <>
-            <div className='flex gap-3 items-center mt-4'>
-              <DropDownFilter curent={sort} sortOptions={sortOptions} />
-              <p className='text-white text-[12px] mobile-xl:text-[15px]'><strong>{totalMovies}</strong> Kết quả 
-              <span>{validValues?` cho: `:''}</span><strong>{validValues?` ${validValues}`:''}</strong></p>
-            </div>
-            
-            {/* Movies list */}
-            {movies.map((movie) => (
-              <MovieCardList key={movie.mov_id} movie={movie} location={location.pathname+location.search} />
-            ))}
-          </>
-        }
+        <div className='flex gap-3 items-center mt-4'>
+          <DropDownFilter curent={sort} sortOptions={sortOptions} />
+          <p className='text-white text-[12px] mobile-xl:text-[15px]'><strong>{totalMovies}</strong> Kết quả 
+            <span>{validValues?` cho: `:''}</span><strong>{validValues?` ${validValues}`:''}</strong>
+          </p>
+        </div>
+        
+        {/* Movies list */}
+        {movies.map((movie) => (
+          <MovieCardList key={movie.mov_id} movie={movie} location={location.pathname+location.search} />
+        ))}
 
         {/* pagination */}
-        {(!isLoadings&&totalMovies!==0)&&<Pagination currentPage={currentPage} totalDatas={totalMovies} totalPages={totalPages} onPageChange={onPageChange} handlePagination={handlePagination}/>}
+        {(!isLoadings&&totalMovies!=0)&&<Pagination currentPage={currentPage} totalDatas={totalMovies} totalPages={totalPages} onPageChange={onPageChange} handlePagination={handlePagination}/>}
       </div>
     </AdminLayout>
   )

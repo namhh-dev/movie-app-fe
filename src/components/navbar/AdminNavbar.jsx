@@ -1,11 +1,11 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Thumb from '../../assets/image/thumb.png';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function classNames(...classes) {
-return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ')
 }
 
 export default function AdminNavbar({ page }) {
