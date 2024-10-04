@@ -240,14 +240,6 @@ export default function ListMovieAdmin() {
   ];
   
   const validValues = validResult.filter(value => value && value.length > 0).join(', ');
-  
-  if(isLoadings || !movies){
-    return(
-      <div className="flex justify-center items-center h-screen text-white">
-        <Loading />
-      </div>
-    )
-  }
 
   return (
     <AdminLayout index={0}>

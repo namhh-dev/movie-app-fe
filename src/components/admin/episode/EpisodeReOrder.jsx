@@ -110,7 +110,7 @@ const EpisodeCardReOrder = ({ episode }) => {
         <div className='py-5 px-3 shadow-lg border rounded-md mb-2 bg-gray-300 bg-opacity-30 backdrop-blur'>
             {/* HEADER */}
             <div className='flex justify-between items-center'>
-                <span className='font-bold text-[13px] mobile-xl:text-[16px] text-center text-white'>{episode.ep_title}</span>
+                <span className='font-bold text-[13px] mobile-xl:text-[16px] text-center text-white'>{episode.ep_name}</span>
             </div>
         </div>
     </Reorder.Item>
