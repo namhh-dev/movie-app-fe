@@ -239,7 +239,7 @@ const EpisodeCard = ({ episode, setIsUpdated }) => {
     }
 
     return(
-        <div className="bg-gray-600 rounded-md p-2 mobile-xl:p-4">
+        <div className="bg-gray-300 bg-opacity-30 backdrop-blur rounded-md p-2 mobile-xl:p-4">
             {/* header */}
             <div onClick={() => setIsDisplay(!isDisplay)} className='flex justify-between items-center'>
                 <div className='flex gap-2'>
