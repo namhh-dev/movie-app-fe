@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Chip } from "@material-tailwind/react";
+import { Button, Chip } from "@material-tailwind/react";
 import { IconEdit } from '../../../icon/Icon';
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -50,8 +50,9 @@ export default function MovieCardList({ movie, location, onClick }) {
             </div>
 
             <div className='absolute top-2 tablet-s:top-2 right-4 mt-2 mr-2'>
-                <Chip icon={<IconEdit />} onClick={handleShowMovieDetail} variant="gradient" value="Chỉnh sửa" color='purple' 
-                className="hidden tablet-m:block rounded-xl font-md py-2 px-3 cursor-pointer text-[6px] tablet-s:text-[13px]" />
+                <Button onClick={handleShowMovieDetail} variant="gradient" color='purple' className="hidden tablet-m:flex gap-1 rounded-xl font-md py-2 px-3 cursor-pointer text-[6px] tablet-s:text-[13px]">
+                    <IconEdit />Chỉnh sửa
+                </Button>
             </div>
         </div>
     ) 

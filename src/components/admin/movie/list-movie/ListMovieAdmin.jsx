@@ -256,7 +256,7 @@ export default function ListMovieAdmin() {
           {/* Search input */}
           <div className="relative w-full">
             <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"> <IconSearch /> </span>   
-            <input type="text" name="query" className="bg-gray-700 placeholder-slate-300 text-white text-sm w-full rounded-full block py-1 px-2 pl-10" // Adjust padding-left to make space for the icon
+            <input type="text" name="query" className="bg-[#374151] placeholder-slate-300 text-white text-sm w-full rounded-full block py-1 px-2 pl-10" // Adjust padding-left to make space for the icon
               placeholder="Tìm kiếm phim..."
               value={filters.query}
               onChange={(e) => updateState('query', e.target.value)}

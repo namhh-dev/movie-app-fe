@@ -4,6 +4,10 @@ import { IconAdd, IconReOrder } from "../icon/Icon";
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
 export default function SettingEpisodeMenu({ handleCreateOpen, handleReOrderOpen }) {
   const navigation = [
         { label: "Thêm tập mới", icon: <IconAdd />, onClick: handleCreateOpen, current: true },
@@ -38,12 +42,20 @@ export default function SettingEpisodeMenu({ handleCreateOpen, handleReOrderOpen
       </div>
 
       <DisclosurePanel className="laptop-m:hidden mb-2">
-        <div className="grid gap-2">
-          {navigation.map((item) => (
-            <Button onClick={item.onClick} key={item.label} variant="gradient" color="green" className="flex rounded-full items-center gap-1 px-3 mobile-xl:px-3 py-1 text-[10px]">
-              {item.icon}
-              {item.label}
-            </Button>
+        <div className="grid">
+          {navigation.map((item, index) => (
+            <div key={index} onClick={item.onClick}>
+              <DisclosureButton
+                as="a"
+                aria-current={item.current ? 'page' : undefined}
+                className={classNames(
+                  index.current ? 'bg-gray-500 text-white' : 'hover:bg-[#8b5cf6]',
+                  'block rounded-md px-3 py-1 text-sm text-white font-medium hover:cursor-pointer',
+                )}>
+                {item.label}
+              </DisclosureButton>
+              <hr />
+            </div>
           ))}
         </div>
       </DisclosurePanel>

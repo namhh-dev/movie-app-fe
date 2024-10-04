@@ -67,7 +67,7 @@ export function SingleSelectComponent({value, title, id, options, onChange}) {
   return(
     <div className='mb-2'>
         <label for={id} class="block mb-2 text-[10px] mobile-xl:text-sm font-bold text-[#1496d5]">{title}</label>
-        <select value={value} onChange={onChange} id="quality" className="w-full py-0 mobile-xl:py-2 px-2 bg-gray-700 placeholder-slate-300 text-white text-[10px] mobile-xl:text-sm rounded-md block">
+        <select value={value} onChange={onChange} id="quality" className="w-full py-0 mobile-xl:py-2 px-2 bg-[#374151] placeholder-slate-300 text-white text-[10px] mobile-xl:text-sm rounded-md block">
           {options.map((op, index)=> {
               return <option key={index} value={op.value}>{op.label}</option>
           })}
@@ -79,7 +79,7 @@ export function SingleSelectComponent({value, title, id, options, onChange}) {
 
 export function FiterSelect({ name, title, value, options, onChange }) {
   return(
-    <select name={name} value={value?value:''} onChange={onChange} className="w-full py-0 mobile-xl:py-1 px-2 bg-gray-700 placeholder-slate-300 text-white text-[10px] mobile-xl:text-sm rounded-full block">
+    <select name={name} value={value?value:''} onChange={onChange} className="w-full py-0 mobile-xl:py-1 px-2 bg-[#374151] placeholder-slate-300 text-white text-[10px] mobile-xl:text-sm rounded-full block">
       <option value=''>{title}</option>
       {options.map((op, index)=> {
           return <option key={index} value={op.value}>{op.label}</option>

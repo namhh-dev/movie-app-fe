@@ -5,7 +5,7 @@ import { createMovie, handleAutoFillEpisodeData, handleAutoFillMovieData, resMov
 import { Alert } from '../../../alert/Alert';
 import { validateLink } from '../../../../services/validator';
 import FormCreateMovie from './FormCreateMovie';
-import { Chip } from '@material-tailwind/react';
+import { Button, Chip } from '@material-tailwind/react';
 import { IconAdd, IconDownload } from '../../../icon/Icon';
 import AdminLayout from '../../AdminLayout';
 import Scroll from '../../../common/Scroll';
@@ -130,9 +130,9 @@ export default function CreateMovieApi() {
                     />
                 </div>
                 <div className="col-4 mb-4 flex gap-5">
-                    <button disabled={isCallApi?true:false} onClick={handleCallMovieApi} className={`${isCallApi?'cursor-not-allowed':'cursor-pointer'}`}>
-                        <Chip icon={<IconDownload />} variant='gradient' value="Lấy dữ liệu phim" color={isCallApi?'':'cyan'} className={`text-white hover:bg-gray-800 rounded-lg text-md ${isCallApi?'bg-gray-700':'bg-gray-500'}`}/>
-                    </button>
+                    <Button disabled={isCallApi?true:false} onClick={handleCallMovieApi} variant="gradient" color='cyan' className="rounded-lg text-md flex items-center gap-1 font-md text-[10px] laptop-m:text-[12px] px-3 py-2">
+                        <IconDownload />Lấy dữ liệu phim
+                    </Button>
                     {isCallApi && <Loading />} {/* Show loading spinner during API call */}
                 </div>
             </div>
@@ -150,9 +150,9 @@ export default function CreateMovieApi() {
 
             {/* Button to create a new movie */}
             <div className="col-4 mb-4 flex gap-5">
-                <button disabled={isCreating?true:false} onClick={handleCreateMovie} className={`${isCreating?'cursor-not-allowed':'cursor-pointer'}`}>
-                    <Chip icon={<IconAdd />} variant='gradient' value="Tạo phim" color={isCreating?'':'green'} className={`text-white hover:bg-gray-800 rounded-lg text-md ${isCreating?'bg-gray-700':'bg-gray-500'}`}/>
-                </button>
+                <Button disabled={isCreating?true:false} onClick={handleCreateMovie} variant="gradient" color='green' className="rounded-lg text-md flex items-center gap-1 font-md text-[10px] laptop-m:text-[12px] px-3 py-2">
+                    <IconAdd />Tạo phim
+                </Button>
                 {isCreating && <Loading />} {/* Show loading spinner during API call */}
             </div>
 

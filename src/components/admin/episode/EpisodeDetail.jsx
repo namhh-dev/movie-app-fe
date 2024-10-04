@@ -143,7 +143,7 @@ const EpisodeDetail = React.memo(({ movId }) => {
                     <EpisodeForm movId={movId} setIsUpdated={setIsUpdated} handleCloseForm={()=>{setIsCreate(false);}}/>
                 </div>
             :isReOrder ?
-                <div className='bg-[#202c3c] rounded-md px-2'>
+                <div className='bg-[#202c3c] rounded-md px-2 mt-2'>
                     <EpisodeReOrder movId={movId} handleCancel={handleReOrderOpen} setIsUpdated={setIsUpdated}/>
                 </div>
             :
